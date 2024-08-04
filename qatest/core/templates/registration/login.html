@@ -15,11 +15,9 @@
     />
   </head>
   <body>
-    <div class="container"></div>
-
     <div class="main">
       {% block content %}
-      <div class="container-md my-5">
+      <div>
         <h1>login</h1>
         <form method="POST" autocomplete="off">
           {% csrf_token %} {{loginform.as_p}}
