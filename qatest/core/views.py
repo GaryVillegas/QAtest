@@ -24,4 +24,7 @@ def index(request):
     return render(request, 'registration/login.html', context)
 
 def adminwindow(request):
-    return render(request, 'core/admin.html')
+    return render(request, 'core/admin/admin.html')
+
+def adduser(request):
+    return render(request, 'core/admin/adduser.html')
