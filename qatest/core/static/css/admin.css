@@ -2,6 +2,7 @@
 :root {
   --PRIMARY: #2682b4;
   --WHITE: #fff;
+  --GREY: #777;
 }
 
 * {
@@ -31,7 +32,7 @@ body {
 }
 
 .navigation.active {
-  width: 90px;
+  width: 60px;
 }
 
 .navigation ul {
@@ -54,10 +55,9 @@ body {
 }
 
 .navigation ul li:nth-child(1) {
-  margin-top: 40px;
+  margin-top: 10px;
   pointer-events: none;
 }
-
 .navigation ul li a {
   position: relative;
   display: block;
@@ -131,7 +131,7 @@ body {
 
 .main.active {
   width: calc(100%-90px);
-  left: 90px;
+  left: 60px;
 }
 
 .topbar {
@@ -152,4 +152,64 @@ body {
   align-items: center;
   font-size: 2.5rem;
   cursor: pointer;
+}
+
+.cardbox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.cardbox .card {
+  position: relative;
+  background: var(--WHITE);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--GREY);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardbox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--PRIMARY);
+}
+
+.cardbox .card .cardname {
+  color: var(--GREY);
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.cardbox .card .iconbox {
+  font-size: 3.5rem;
+  color: var(--GREY);
+}
+
+.cardbox .card:hover {
+  background: var(--PRIMARY);
+}
+
+.cardbox .card:hover .numbers,
+.cardbox .card:hover .cardname,
+.cardbox .card:hover .iconbox {
+  color: var(--WHITE);
+}
+
+/*Media*/
+@media (max-width: 600px) {
+  .cardbox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-gap: 20px;
+  }
 }

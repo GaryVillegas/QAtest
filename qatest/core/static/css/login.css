@@ -20,21 +20,30 @@ body {
 
 .main {
   width: 300px;
-  height: 330px;
+  height: 400px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   text-align: center;
   border-radius: 10%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(30px);
   position: absolute;
   top: 30%;
   left: 45%;
-  border: 2px grey solid;
+  color: var(--WHITE);
+  border: 0.5px solid var(--WHITE);
 }
 
 .main h1 {
-  color: aliceblue;
+  color: var(--WHITE);
+}
+
+.messages {
+  color: red;
+}
+
+label {
+  color: var(--WHITE);
 }
 
 @media (max-width: 600px) {

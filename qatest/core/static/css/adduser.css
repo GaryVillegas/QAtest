@@ -2,6 +2,7 @@
 :root {
   --PRIMARY: #2682b4;
   --WHITE: #fff;
+  --GREY: #777;
 }
 
 * {
@@ -152,4 +153,51 @@ body {
   align-items: center;
   font-size: 2.5rem;
   cursor: pointer;
+}
+
+.option {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 30px;
+}
+
+.option a {
+  text-decoration: none;
+  background: var(--WHITE);
+}
+
+.option .optionadd {
+  position: relative;
+  background: var(--WHITE);
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid var(--GREY);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.option .optionadd .iconoption {
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.option .optionadd .optionname {
+  color: var(--GREY);
+  font-size: 1rem;
+  margin-left: 10px;
+  margin-top: 3px;
+}
+
+.option .optionadd:hover {
+  background: var(--PRIMARY);
+}
+
+.option .optionadd:hover .iconoption,
+.option .optionadd:hover .optionname {
+  color: var(--WHITE);
 }

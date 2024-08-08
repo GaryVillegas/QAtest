@@ -23,6 +23,16 @@
           {% csrf_token %} {{loginform.as_p}}
           <button type="submit" class="btn btn-secondary my-2">ingresar</button>
         </form>
+
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
       {% endblock %}
     </div>
