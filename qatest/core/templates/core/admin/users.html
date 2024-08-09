@@ -83,6 +83,25 @@
           </div>
         </a>
       </div>
+
+      <div class="users">
+        <div class="recentusers">
+          <h2>Users</h2>
+          <a href="#" class="btn">View All</a>
+        </div>
+
+        {% block content %}
+        <table>
+          <thead>
+            <tr>
+              <td>User Name</td>
+              <td>Mail</td>
+              <td>Group</td>
+            </tr>
+          </thead>
+        </table>
+        {% endblock %}
+      </div>
     </div>
 
     <!-- Script Bootstrap-->

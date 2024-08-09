@@ -201,3 +201,7 @@ body {
 .option .optionadd:hover .optionname {
   color: var(--WHITE);
 }
+
+.adduser {
+  position: relative;
+}

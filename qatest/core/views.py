@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, logout
-from django.contrib.auth.models import auth
+from django.contrib.auth.models import auth, User
 from django.contrib import messages
 
 # Create your views here.
@@ -66,7 +66,14 @@ def adduser(request):
     return render(request, 'registration/adduser.html', context)
 
 def users(request):
-    return render(request, 'core/admin/users.html')
+
+    user_list = User.objects.all()
+
+    context = {
+        'user_list': user_list
+    }
+
+    return render(request, 'core/admin/users.html', context)
 
 def analista(request):
     return render(request, 'core/analista/analista.html')
