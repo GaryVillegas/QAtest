@@ -46,7 +46,27 @@ def adminwindow(request):
     return render(request, 'core/admin/admin.html')
 
 def adduser(request):
-    return render(request, 'core/admin/adduser.html')
+    
+    form = usercreator()
+    if request.method == "POST":
+        form = usercreator(request.POST)
+        if form.is_valid():
+            user = form.save()
+            try:
+                group_id = form.cleaned_data.get("group").id
+                group = Group.objects.get(id=group_id)
+                user.groups.add(group)
+            except Group.DoesNotExist:
+                mgs = "ERROR"
+            
+    context={
+        'usercreate': form
+    }
+
+    return render(request, 'registration/adduser.html', context)
+
+def users(request):
+    return render(request, 'core/admin/users.html')
 
 def analista(request):
     return render(request, 'core/analista/analista.html')
