@@ -48,7 +48,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  href="{% url 'projects' %}"
                   class="nav-link py-3 px-2"
                   title=""
                   data-bs-toggle="tooltip"
@@ -97,28 +97,39 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
+          <div class="row">
+            <div class="col-sm-auto">
+              <button class="btn btn-light text-decoration-none">
+                <a
+                  href="{% url 'users' %}"
+                  class="text-decoration-none text-dark"
+                >
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Back</span>
+                </a>
+              </button>
+            </div>
+          </div>
 
-          <div class="container h-100">
+          <div class="container h-95 mt-5">
             <div
-              class="row d-flex justify-content-center align-items-center h-100"
+              class="row d-flex justify-content-center align-items-center h-95"
             >
-              <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                <div class="card" style="border-radius: 15px">
-                  <div class="card-body p-5">
-                    <h2 class="text-uppercase text-center mb-5">
-                      Create an account
-                    </h2>
-                    {% block content %}
-                    <form method="POST" autocomplete="off">
-                      {% csrf_token %} {{usercreate.as_p}}
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-secondary my-2">
-                          ingresar
-                        </button>
-                      </div>
-                    </form>
-                    {% endblock %}
-                  </div>
+              <div class="card" style="border-radius: 15px">
+                <div class="card-body p-5">
+                  <h2 class="text-uppercase text-center mb-5">
+                    Create an account
+                  </h2>
+                  {% block content %}
+                  <form method="POST" autocomplete="off">
+                    {% csrf_token %} {{usercreate.as_p}}
+                    <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-secondary my-2">
+                        ingresar
+                      </button>
+                    </div>
+                  </form>
+                  {% endblock %}
                 </div>
               </div>
             </div>

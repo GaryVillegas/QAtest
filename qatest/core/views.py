@@ -77,6 +77,34 @@ def users(request):
 
     return render(request, 'core/admin/users.html', context)
 
+def deleteuserpanel(request):
+    
+    user_list = User.objects.all()
+
+    context = {
+        'user_list': user_list
+    }
+
+    return render(request, 'core/admin/deleteuserpanel.html', context)
+
+def deleteuser(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        if request.user == user:
+            return redirect('deleteuserpanel')
+        else:
+            user.delete()
+            return redirect('users')
+    except User.DoesNotExist:
+        msg = 'error'
+        return redirect('users')
+    
+    return render(request, 'core/admin/deleteuserpanel.html')
+
+def projects(request):
+    return render(request, 'core/admin/projects.html')
+    
+
 def analista(request):
     return render(request, 'core/analista/analista.html')
 

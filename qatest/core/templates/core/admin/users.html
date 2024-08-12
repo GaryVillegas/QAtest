@@ -47,7 +47,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  href="{% url 'projects' %}"
                   class="nav-link py-3 px-2"
                   title=""
                   data-bs-toggle="tooltip"
@@ -98,7 +98,7 @@
           <!-- content -->
 
           <div class="row">
-            <div class="col-sm-auto">
+            <div class="col-sm-auto my-1">
               <button class="btn btn-light text-decoration-none">
                 <a
                   href="{% url 'adduser' %}"
@@ -109,9 +109,12 @@
                 </a>
               </button>
             </div>
-            <div class="col-sm-auto">
+            <div class="col-sm-auto my-1">
               <button class="btn btn-light text-decoration-none">
-                <a href="#" class="text-decoration-none text-dark">
+                <a
+                  href="{% url 'deleteuserpanel' %}"
+                  class="text-decoration-none text-dark"
+                >
                   <ion-icon name="trash-outline"></ion-icon>
                   <span>Delete User</span>
                 </a>
