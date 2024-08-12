@@ -3,6 +3,7 @@ from .forms import *
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 def index(request):
@@ -68,24 +69,27 @@ def adduser(request):
     return render(request, 'registration/adduser.html', context)
 
 def users(request):
-
-    user_list = User.objects.all()
+    
+    group_name=['analista', 'dev']
+    user_list = User.objects.filter(groups__name__in=group_name)
 
     context = {
-        'user_list': user_list
+        'user_list': user_list,
     }
 
     return render(request, 'core/admin/users.html', context)
 
 def deleteuserpanel(request):
     
-    user_list = User.objects.all()
+    group_name=['analista', 'dev']
+    user_list = User.objects.filter(groups__name__in=group_name)
 
     context = {
         'user_list': user_list
     }
 
     return render(request, 'core/admin/deleteuserpanel.html', context)
+
 
 def deleteuser(request, user_id):
     try:
