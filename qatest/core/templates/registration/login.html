@@ -15,32 +15,73 @@
     />
   </head>
   <body>
-    <div class="main">
-      {% block content %}
-      <div>
-        <h1>login</h1>
-        <form method="POST" autocomplete="off">
-          {% csrf_token %} {{loginform.as_p}}
-          <button type="submit" class="btn btn-secondary my-2">ingresar</button>
-        </form>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 text-black">
+          <div class="px-5 ms-xl-4">
+            <ion-icon name="code-slash-outline"></ion-icon>
+            <span class="h1 fw-bold mb-0">QAtest</span>
+          </div>
 
-        {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-            {{ message }}
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %}
+          {% block content %}
+          <div
+            class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
+          >
+            <form method="POST" style="width: 23rem" autocomplete="off">
+              <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                Log in
+              </h3>
+
+              {% csrf_token %} {{loginform.as_p}}
+              <button
+                type="submit"
+                data-mdb-button-init
+                data-mdb-ripple-init
+                class="btn btn-secondary btn-block"
+              >
+                ingresar
+              </button>
+            </form>
+
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% endblock %}
+        </div>
+
+        <div class="col-sm-6 px-0 d-none d-sm-block">
+          <img
+            src="{% static 'img/loginback.jpg' %}"
+            alt="Login image"
+            class="w-100 vh-100"
+            style="object-fit: cover; object-position: left"
+          />
+        </div>
       </div>
-      {% endblock %}
     </div>
+
     <!-- Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
+    ></script>
+
+    <!-- IONicons-->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
   </body>
 </html>

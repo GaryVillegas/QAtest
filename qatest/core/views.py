@@ -58,6 +58,8 @@ def adduser(request):
                 user.groups.add(group)
             except Group.DoesNotExist:
                 mgs = "ERROR"
+
+            return redirect('users')
             
     context={
         'usercreate': form
