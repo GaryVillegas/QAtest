@@ -15,70 +15,99 @@
     />
   </head>
   <body>
-    <div class="containe">
-      <div class="navigation">
-        <ul>
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="code-slash-outline"></ion-icon>
-              </span>
-              <span class="title">QAtest</span>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-auto bg-light sticky-top">
+          <div
+            class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top"
+          >
+            <a
+              href=""
+              class="d-block p-3 link-dark text-decoration-none"
+              title=""
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              data-bs-original-title="Icon-only"
+            >
+              <ion-icon name="code-slash-outline"></ion-icon>
             </a>
-          </li>
-
-          <li>
-            <a href="{% url 'adminwindow' %}">
-              <span class="icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </span>
-              <span class="title">Dashboard</span>
+            <ul
+              class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center"
+            >
+              <li class="nav-item">
+                <a
+                  href="{% url 'adminwindow' %}"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <ion-icon name="home-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Projects"
+                >
+                  <ion-icon name="apps-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="{% url 'users' %}"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Users"
+                >
+                  <ion-icon name="people-outline"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <a
+              href="#"
+              class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser3"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <ion-icon name="person-circle-outline"></ion-icon>
             </a>
-          </li>
-
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="apps-outline"></ion-icon>
-              </span>
-              <span class="title">Projects</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{% url 'users' %}">
-              <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
-              </span>
-              <span class="title">Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'logout' %}">
-              <span class="icon">
-                <ion-icon name="log-out-outline"></ion-icon>
-              </span>
-              <span class="title">Sign Out</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="main">
-      <div class="topbar">
-        <div class="toggle">
-          <ion-icon name="menu-outline"></ion-icon>
+            <ul
+              class="dropdown-menu text-small shadow"
+              aria-labelledby="dropdownUser3"
+            >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div class="adduser">
-        {% block content %}
-        <form method="POST" autocomplete="off">
-          {% csrf_token %} {{usercreate.as_p}}
-          <button type="submit" class="btn btn-secondary my-2">ingresar</button>
-        </form>
-        {% endblock %}
+        <div class="col-sm p-3 min-vh-100">
+          <!-- content -->
+          <div class="adduser">
+            {% block content %}
+            <form method="POST" autocomplete="off">
+              {% csrf_token %} {{usercreate.as_p}}
+              <button type="submit" class="btn btn-secondary my-2">
+                ingresar
+              </button>
+            </form>
+            {% endblock %}
+          </div>
+        </div>
       </div>
     </div>
 
