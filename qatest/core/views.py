@@ -107,7 +107,9 @@ def deleteuser(request, user_id):
 
 def projects(request):
     return render(request, 'core/admin/projects.html')
-    
+
+def addproject(request):
+    return render(request, 'core/admin/addproject.html')    
 
 def analista(request):
     return render(request, 'core/analista/analista.html')
