@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import *
+from .models import *
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
@@ -106,10 +107,34 @@ def deleteuser(request, user_id):
     return render(request, 'core/admin/deleteuserpanel.html')
 
 def projects(request):
-    return render(request, 'core/admin/projects.html')
+
+    projects = Project.objects.all()
+    msg = ''
+    if not projects:
+        msg = 'There are 0 projects at this moment.'
+    context = {
+        'project_list': projects,
+        'message': msg
+    }
+    return render(request, 'core/admin/projects.html', context)
 
 def addproject(request):
-    return render(request, 'core/admin/addproject.html')    
+    project = ProjectForm()
+
+    if request.method == "POST":
+        project = ProjectForm(request.POST)
+        if project.is_valid():
+            project.save()
+            return redirect('projects')
+
+    context = {
+        'projectform': project
+    }
+
+    return render(request, 'core/admin/addproject.html', context)
+
+def project(request):
+    return render(request, 'core/admin/projects/project.html')
 
 def analista(request):
     return render(request, 'core/analista/analista.html')

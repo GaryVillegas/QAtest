@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User, Group
 from django import forms
+from .models import *
 
 class login(AuthenticationForm):
     
@@ -15,3 +16,12 @@ class usercreator(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "group"]
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }

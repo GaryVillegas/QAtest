@@ -117,16 +117,29 @@
                 <thead>
                   <tr>
                     <th>Project Name</th>
-                    <th>Start</th>
-                    <th>Finish</th>
-                    <th>Tickets</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  {% for projects in project_list %}
+                  <tr>
+                    <td>
+                      <a
+                        href="{% url 'project' %}"
+                        class="text-decoration-none text-dark"
+                        >{{projects.name}}</a
+                      >
+                    </td>
+                    <td></td>
+                    {% if message %}
+                    <div class="container">{{message}}</div>
+                    {% endif %}
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>

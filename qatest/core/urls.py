@@ -11,6 +11,7 @@ urlpatterns=[
     path('deleteuser/<int:user_id>/', deleteuser, name='deleteuser'),
     path('projects', projects, name='projects'),
     path('addproject', addproject, name='addproject'),
+    path('project', project, name='project'),
     path('analista', analista, name='analista'),
     path('dev', dev, name='dev'),
 ]

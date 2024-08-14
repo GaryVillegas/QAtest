@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>admin</title>
+    <title>project</title>
     <link rel="stylesheet" href="{% static '' %}" />
     <!-- bootstrap -->
     <link
@@ -14,7 +14,6 @@
       crossorigin="anonymous"
     />
   </head>
-
   <body>
     <div class="container-fluid">
       <div class="row">
@@ -96,36 +95,6 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
-          <div class="row">
-            <div class="col-sm-auto my-1">
-              <button class="btn btn-light text-decoration-none">
-                <a
-                  href="{% url 'projects' %}"
-                  class="text-decoration-none text-dark"
-                >
-                  <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
-                </a>
-              </button>
-            </div>
-            <div class="container h-95 mt-5">
-              <div
-                class="row d-flex justify-content-center align-items-center h-95"
-              >
-                <div class="card-body py-5">
-                  <h2 class="text-uppercase text-center mb-5">New Project</h2>
-                  <form method="POST">
-                    {% csrf_token %} {{projectform}}
-                    <div class="d-flex justify-content-center">
-                      <button type="submit" class="btn btn-secondary my-2">
-                        Add Project
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
