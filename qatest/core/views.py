@@ -139,5 +139,8 @@ def project(request):
 def analista(request):
     return render(request, 'core/analista/analista.html')
 
+def analista_projects(request):
+    return render(request, 'core/analista/analista_projects.html')
+
 def dev(request):
     return render(request, 'core/dev/dev.html')
