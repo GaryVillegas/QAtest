@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
 from django.contrib.auth import authenticate, logout
@@ -126,20 +126,6 @@ def deleleprojectpanel(request):
     }
 
     return render(request, 'core/admin/deleteprojectpanel.html', context)
-
-def deleteproject(request, project_id):
-    try:
-        project = Project.objects.get(id=project_id)
-        if request.project == project:
-            return redirect('deleteprojectpanel')
-        else:
-            project.delete()
-            return redirect('projects')
-    except Project.DoesNotExist:
-        msg = 'error'
-        return redirect('projects')
-    
-    return render(request, 'core/admin/deleteproject.html')
 
 def addproject(request):
     project = ProjectForm()
