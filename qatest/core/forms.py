@@ -3,19 +3,27 @@ from django.contrib.auth.models import User, Group
 from django import forms
 from .models import *
 
-class login(AuthenticationForm):
+class Login(AuthenticationForm):
     
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control', 'placeholder': 'Username'}))
+        'class': 'form-control', 'placeholder': ''}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control', 'placeholder': 'Password'}))
+        'class': 'form-control', 'placeholder': ''}))
     
-class usercreator(UserCreationForm):
+class UserCreator(UserCreationForm):
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
+    project = forms.ModelChoiceField(queryset=Project.objects.all(), required=True)
 
     class Meta:
         model = User
-        fields = ["username", "email", "group"]
+        fields = ["username", "email", "group", "project"]
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            'password': forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form.control', 'placeholder': ''})),
+            'group': forms.Select(attrs={'class': 'form-control'}),
+            'project': forms.Select(attrs={'class': 'form-control'})
+        }
 
 class ProjectForm(forms.ModelForm):
     class Meta:

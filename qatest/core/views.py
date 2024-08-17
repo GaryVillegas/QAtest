@@ -8,9 +8,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 def index(request):
-    form = login()
+    form = Login()
     if request.method == "POST":
-        form = login(request, data=request.POST)
+        form = Login(request, data=request.POST)
         if form.is_valid():
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -49,9 +49,9 @@ def adminwindow(request):
 
 def adduser(request):
     
-    form = usercreator()
+    form = UserCreator()
     if request.method == "POST":
-        form = usercreator(request.POST)
+        form = UserCreator(request.POST)
         if form.is_valid():
             user = form.save()
             try:
