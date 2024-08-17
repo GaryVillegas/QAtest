@@ -118,6 +118,29 @@ def projects(request):
     }
     return render(request, 'core/admin/projects.html', context)
 
+def deleleprojectpanel(request):
+
+    projects = Project.objects.all()
+    context = {
+        'project_list': projects
+    }
+
+    return render(request, 'core/admin/deleteprojectpanel.html', context)
+
+def deleteproject(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+        if request.project == project:
+            return redirect('deleteprojectpanel')
+        else:
+            project.delete()
+            return redirect('projects')
+    except Project.DoesNotExist:
+        msg = 'error'
+        return redirect('projects')
+    
+    return render(request, 'core/admin/deleteproject.html')
+
 def addproject(request):
     project = ProjectForm()
 

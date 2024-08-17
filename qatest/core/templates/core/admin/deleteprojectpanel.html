@@ -97,25 +97,14 @@
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
           <div class="row">
-            <div class="col-sm-auto my-1">
+            <div class="col-sm-auto">
               <button class="btn btn-light text-decoration-none">
                 <a
-                  href="{% url 'addproject' %}"
+                  href="{% url 'projects' %}"
                   class="text-decoration-none text-dark"
                 >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span>Add Project</span>
-                </a>
-              </button>
-            </div>
-            <div class="col-sm-auto my-1">
-              <button class="btn btn-light text-decoration-none">
-                <a
-                  href="{% url 'deletepanelproject' %}"
-                  class="text-decoration-none text-dark"
-                >
-                  <ion-icon name="trash-outline"></ion-icon>
-                  <span>Delete Project</span>
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Back</span>
                 </a>
               </button>
             </div>
@@ -145,7 +134,15 @@
                     </td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td>
+                      <button class="btn btn-danger">
+                        <a
+                          href="{% url 'deleteproject' project_id=project.id %}"
+                          class="text-decoration-none text-light"
+                          ><ion-icon name="trash-outline"></ion-icon
+                        ></a>
+                      </button>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>
