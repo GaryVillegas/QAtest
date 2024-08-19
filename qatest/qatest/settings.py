@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'qatest.wsgi.application'
+ASGI_APPLICATION = 'qatest.asgi.application'
 
 
 # Database

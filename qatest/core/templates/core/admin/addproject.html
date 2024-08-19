@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>admin</title>
+    <title>Add Project</title>
     <link rel="stylesheet" href="{% static '' %}" />
     <!-- bootstrap -->
     <link
@@ -108,13 +108,13 @@
                 </a>
               </button>
             </div>
-            <div class="container h-95 mt-5">
+            <div class="container mt-5" style="width: 700px">
               <div
                 class="row d-flex justify-content-center align-items-center h-95"
               >
                 <div class="card-body py-5">
                   <h2 class="text-uppercase text-center mb-5">New Project</h2>
-                  <form method="POST">
+                  <form method="POST" class="form">
                     {% csrf_token %} {{projectform}}
                     <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-secondary my-2">

@@ -103,7 +103,7 @@
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="person-add-outline"></ion-icon>
-                  <span>Add User</span>
+                  <span>Users</span>
                 </a>
               </button>
             </div>
@@ -141,7 +141,10 @@
                       {%for group in user.groups.all%} {{ group.name }}
                       {%endfor%}
                     </td>
-                    <td></td>
+                    <td>
+                      {% for project in project_list %} {{project.name}}
+                      {%endfor%}
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>

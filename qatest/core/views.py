@@ -73,9 +73,13 @@ def users(request):
     
     group_name=['analista', 'dev']
     user_list = User.objects.filter(groups__name__in=group_name)
+    project_list = Project.objects.filter(responsible_user__in=user_list)
+
+    print(f"Proyectos para el usuario {request.user}: {project_list}")
 
     context = {
         'user_list': user_list,
+        'project_list': project_list
     }
 
     return render(request, 'core/admin/users.html', context)
@@ -126,6 +130,15 @@ def deleleprojectpanel(request):
     }
 
     return render(request, 'core/admin/deleteprojectpanel.html', context)
+
+def deleteproject(request, project_id):
+    try:
+        project = Project.objects.get(id = project_id)
+        project.delete()
+        return redirect('projects')
+    except Project.DoesNotExist:
+        msg = 'error'
+    return render(request, 'core/admin/deleteproject.html')
 
 def addproject(request):
     project = ProjectForm()
