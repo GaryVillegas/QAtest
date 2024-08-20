@@ -122,7 +122,7 @@ def projects(request):
     }
     return render(request, 'core/admin/projects.html', context)
 
-def deleleprojectpanel(request):
+def deleteprojectpanel(request):
 
     projects = Project.objects.all()
     context = {
@@ -149,6 +149,15 @@ def addproject(request):
 
 def project(request):
     return render(request, 'core/admin/projects/project.html')
+
+def deleteproject(request, pk):
+    try:
+        project = get_object_or_404(Project, id = pk)
+        project.delete()
+        return redirect('deleteprojectpanel')
+    except Project.DoesNotExist:
+        messages.error("Error al buscar la tabla")
+        return redirect('deleteprojectpanel')
 
 def analista(request):
     return render(request, 'core/analista/analista.html')
