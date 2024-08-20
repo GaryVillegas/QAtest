@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Project(models.Model):
-    id = models.BigAutoField(primary_key=True)
     name = models.TextField()
     description = models.TextField(null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -24,7 +23,6 @@ class Ticket(models.Model):
         (1, '1'), (2, '2'), (3, '3'), (4, '4')
     ]
 
-    id = models.BigAutoField(primary_key=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.TextField()
     description = models.TextField(null = True, blank = True)
