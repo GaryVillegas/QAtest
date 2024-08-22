@@ -143,25 +143,34 @@ def addproject(request):
 
     return render(request, 'core/admin/addproject.html', context)
 
-def project(request):
-    return render(request, 'core/admin/projects/project.html')
+def project(request, project_id):
+    try: 
+        projects = Project.objects.get(id=project_id)
+        context = {
+            'project': projects
+        }
+    except Project.DoesNotExist:
+        messages.error('error')
+    return render(request, 'core/admin/projects/project.html', context)
 
 def deleteproject(request, pk):
     try:
         project = get_object_or_404(Project, id = pk)
         project.delete()
-        return redirect('deleteprojectpanel')
+        return redirect('projects')
     except Project.DoesNotExist:
         messages.error("Error al buscar la tabla")
         return redirect('deleteprojectpanel')
 
 def analista(request):
-
+    
     return render(request, 'core/analista/analista.html')
 
 def analista_projects(request):
     actual_user = request.user
     projects = Project.objects.filter(responsible_user = actual_user)
+
+    
 
     context = {
         'project': projects
@@ -171,10 +180,20 @@ def analista_projects(request):
 
 def analista_project(request, project_id):
     actual_user = request.user
+
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
+
+        ticket = TicketForm()
+        if request.method == 'POST':
+            ticket = TicketForm(request.POST)
+            if ticket.is_valid():
+                ticket.save()
+                return redirect('analista_projects')
+            
         context = {
-            'project': projects
+            'project': projects,
+            'ticketform': ticket
         }
     except Project.DoesNotExist:
         messages.error('Error')

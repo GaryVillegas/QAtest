@@ -115,7 +115,7 @@
                 <div class="card-body py-5">
                   <h2 class="text-uppercase text-center mb-5">New Project</h2>
                   <form method="POST" class="form">
-                    {% csrf_token %} {{projectform}}
+                    {% csrf_token %} {{projectform.as_p}}
                     <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-secondary my-2">
                         Add Project

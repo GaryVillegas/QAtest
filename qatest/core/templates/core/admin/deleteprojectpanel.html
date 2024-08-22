@@ -125,13 +125,7 @@
                 <tbody>
                   {% for projects in project_list %}
                   <tr>
-                    <td>
-                      <a
-                        href="{% url 'project' %}"
-                        class="text-decoration-none text-dark"
-                        >{{projects.name}}</a
-                      >
-                    </td>
+                    <td>{{projects.name}}</td>
                     <td></td>
                     <td></td>
                     <td>

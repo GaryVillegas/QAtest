@@ -95,6 +95,29 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
+          <div class="row">
+            <div class="col-sm-auto my-1">
+              <button class="btn btn-light text-decoration-none">
+                <a
+                  href="{% url 'projects' %}"
+                  class="text-decoration-none text-dark"
+                >
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Back</span>
+                </a>
+              </button>
+            </div>
+
+            {% block content%}
+            <div class="container my-5">
+              <h2 class="my-1">{{project.name}}</h2>
+              <div class="container my-2">
+                <span>Description:</span> <br />
+                {{project.description}}
+              </div>
+            </div>
+            {% endblock %}
+          </div>
         </div>
       </div>
     </div>

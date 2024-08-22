@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.db.models import Q
 
 # Create your models here.
 class Project(models.Model):
@@ -30,7 +31,7 @@ class Ticket(models.Model):
     priority = models.IntegerField(choices=priority_type)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    responsible_user = models.ForeignKey(User, related_name='assigned_tickets', on_delete=models.SET_NULL, null=True, blank=True)
+    responsible_user = models.ForeignKey(User, related_name='assigned_tickets', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to=Q(groups__name__in=['analista', 'dev']))
 
     def __str__(self):
         return self.name
