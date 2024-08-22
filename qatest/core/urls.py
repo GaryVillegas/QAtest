@@ -13,8 +13,9 @@ urlpatterns=[
     path('addproject', addproject, name='addproject'),
     path('project', project, name='project'),
     path('deleteprojectpanel', deleteprojectpanel, name='deleteprojectpanel'),
-    path('deleteproject/<str:pk>/', deleteproject, name='deleteproject'),
+    path('deleteproject/<int:pk>/', deleteproject, name='deleteproject'),
     path('analista', analista, name='analista'),
     path('analista_projects', analista_projects, name='analista_projects'),
+    path('analista_project/<int:project_id>', analista_project, name='analista_project'),
     path('dev', dev, name='dev'),
 ]

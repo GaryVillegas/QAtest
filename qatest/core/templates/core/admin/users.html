@@ -129,7 +129,6 @@
                     <th>User Name</th>
                     <th>Mail</th>
                     <th>Group</th>
-                    <th>Project</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -139,10 +138,6 @@
                     <td>{{ user.email }}</td>
                     <td>
                       {%for group in user.groups.all%} {{ group.name }}
-                      {%endfor%}
-                    </td>
-                    <td>
-                      {% for project in project_list %} {{project.name}}
                       {%endfor%}
                     </td>
                   </tr>

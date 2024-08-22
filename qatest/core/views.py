@@ -73,13 +73,9 @@ def users(request):
     
     group_name=['analista', 'dev']
     user_list = User.objects.filter(groups__name__in=group_name)
-    project_list = Project.objects.filter(responsible_user__in=user_list)
-
-    print(f"Proyectos para el usuario {request.user}: {project_list}")
 
     context = {
-        'user_list': user_list,
-        'project_list': project_list
+        'user_list': user_list
     }
 
     return render(request, 'core/admin/users.html', context)
@@ -160,10 +156,30 @@ def deleteproject(request, pk):
         return redirect('deleteprojectpanel')
 
 def analista(request):
+
     return render(request, 'core/analista/analista.html')
 
 def analista_projects(request):
-    return render(request, 'core/analista/analista_projects.html')
+    actual_user = request.user
+    projects = Project.objects.filter(responsible_user = actual_user)
+
+    context = {
+        'project': projects
+    }
+
+    return render(request, 'core/analista/analista_projects.html', context)
+
+def analista_project(request, project_id):
+    actual_user = request.user
+    try:
+        projects = Project.objects.get(id=project_id, responsible_user = actual_user)
+        context = {
+            'project': projects
+        }
+    except Project.DoesNotExist:
+        messages.error('Error')
+    
+    return render(request, 'core/analista/analista_project.html', context)
 
 def dev(request):
     return render(request, 'core/dev/dev.html')

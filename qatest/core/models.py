@@ -9,7 +9,7 @@ class Project(models.Model):
     responsible_user = models.ForeignKey(User, related_name='assigned_project', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'groups__name': 'analista'})
 
     def __str__(self):
-        return self.name
+        return self.name, self.description
     
 class Ticket(models.Model):
     status_name=[
