@@ -10,7 +10,7 @@ class Project(models.Model):
     responsible_user = models.ForeignKey(User, related_name='assigned_project', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'groups__name': 'analista'})
 
     def __str__(self):
-        return self.name, self.description
+        return self.name
     
 class Ticket(models.Model):
     status_name=[
@@ -34,4 +34,4 @@ class Ticket(models.Model):
     responsible_user = models.ForeignKey(User, related_name='assigned_tickets', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to=Q(groups__name__in=['analista', 'dev']))
 
     def __str__(self):
-        return self.name
+        return self.title

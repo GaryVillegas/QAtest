@@ -36,11 +36,12 @@ class ProjectForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description', 'status', 'priority', 'responsible_user']
+        fields = ['title', 'description', 'status', 'priority', 'responsible_user', 'project']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'priority': forms.Select(attrs={'class': 'form-control'}),
             'responsible_user': forms.Select(attrs={'class': 'form-control'}),
+            'project': forms.Select(attrs={'class': 'form-control'}),
         }

@@ -183,20 +183,14 @@ def analista_project(request, project_id):
 
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
-
-        ticket = TicketForm()
-        if request.method == 'POST':
-            ticket = TicketForm(request.POST)
-            if ticket.is_valid():
-                ticket.save()
-                return redirect('analista_projects')
-            
-        context = {
-            'project': projects,
-            'ticketform': ticket
-        }
+        tickets = Ticket.objects.filter(project=projects)
     except Project.DoesNotExist:
-        messages.error('Error')
+        messages.error(request, 'Error')
+
+    context = {
+        'project': projects,
+        'ticket': tickets,
+    }
     
     return render(request, 'core/analista/analista_project.html', context)
 

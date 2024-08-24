@@ -115,48 +115,30 @@
                   data-bs-toggle="modal"
                   data-bs-target="#myModal"
                 >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span>Ticket</span>
+                  <a href="#" class="text-decoration-none text-dark">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                    <span>Add Ticket</span>
+                  </a>
                 </button>
               </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal" id="myModal">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Ticket</h4>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                    ></button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <form class="form" method="POST">
-                      {% csrf_token %} {{ticketform.as_p}}
-                      <!-- Modal footer -->
-                      <div class="modal-footer d-flex justify-content-center">
-                        <button
-                          type="submit"
-                          class="btn btn-secondary my-2"
-                          data-bs-dismiss="modal"
-                        >
-                          Add Ticket
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+            <div class="container my-2">
+              <table class="table table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th>Ticket Title</th>
+                  </tr>
+                </thead>
+                {% for tickets in ticket %}
+                <tbody>
+                  <tr>
+                    <td>{{tickets.title}}</td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
             </div>
-            <!-- End Modal-->
-
-            {{tickets.title}}
           </div>
           {% endblock %}
         </div>
