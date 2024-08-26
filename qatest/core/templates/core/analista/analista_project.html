@@ -109,31 +109,66 @@
             <div class="row">
               <div class="col-sm-auto my-1">
                 <button
-                  class="btn btn-light text-decoration-none"
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-light"
                   data-bs-toggle="modal"
                   data-bs-target="#myModal"
                 >
-                  <a href="#" class="text-decoration-none text-dark">
-                    <ion-icon name="add-circle-outline"></ion-icon>
-                    <span>Add Ticket</span>
-                  </a>
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                  <span>Add Ticket</span>
                 </button>
               </div>
             </div>
 
             <div class="container my-2">
+              <!-- The Modal -->
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Modal Heading</h4>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                      ></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <form method="POST" class="form-control">
+                        {% csrf_token %} {{ticketform.as_p}}
+                        <div class="d-flex justify-content-center my-1">
+                          <button type="submit" class="btn btn-secondary my-2">
+                            Add Ticket
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- end Modal -->
               <table class="table table-hover table-sm">
                 <thead>
                   <tr>
                     <th>Ticket Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Responsible User</th>
                   </tr>
                 </thead>
                 {% for tickets in ticket %}
                 <tbody>
                   <tr>
                     <td>{{tickets.title}}</td>
+                    <td>{{tickets.get_status_display}}</td>
+                    <td>{{tickets.priority}}</td>
+                    <td>{{tickets.responsible_user}}</td>
                   </tr>
                 </tbody>
                 {% endfor %}

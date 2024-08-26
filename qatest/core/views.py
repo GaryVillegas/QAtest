@@ -14,6 +14,8 @@ def index(request):
         if form.is_valid():
             username = request.POST.get('username')
             password = request.POST.get('password')
+            form.fields['username'].inital = ''
+            form.fields['password'].inital = ''
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
@@ -170,8 +172,6 @@ def analista_projects(request):
     actual_user = request.user
     projects = Project.objects.filter(responsible_user = actual_user)
 
-    
-
     context = {
         'project': projects
     }
@@ -184,12 +184,24 @@ def analista_project(request, project_id):
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
         tickets = Ticket.objects.filter(project=projects)
+        ticket_form = TicketForm()
+        if request.method == 'POST':
+            ticket_form = TicketForm(request.POST)
+            if ticket_form.is_valid():
+                ticket_form.save()
+                ticket_form.fields['title'].initial = ''
+                ticket_form.fields['description'].initial = ''
+                ticket_form.fields['status'].initial = ''
+                ticket_form.fields['priority'].initial = ''
+                ticket_form.fields['responsible_user'].initial = ''
+                return redirect('analista_projects')
     except Project.DoesNotExist:
         messages.error(request, 'Error')
 
     context = {
         'project': projects,
         'ticket': tickets,
+        'ticketform': ticket_form
     }
     
     return render(request, 'core/analista/analista_project.html', context)
