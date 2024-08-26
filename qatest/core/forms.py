@@ -45,3 +45,11 @@ class TicketForm(forms.ModelForm):
             'responsible_user': forms.Select(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widget = {
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'id': 'comment'})
+        }

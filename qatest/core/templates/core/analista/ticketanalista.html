@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analista</title>
+    <title>Ticket</title>
     <link rel="stylesheet" href="" />
     <!-- bootstrap -->
     <link
@@ -81,13 +81,14 @@
           </div>
         </div>
 
+        {% block content %}
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
           <div class="row">
             <div class="col-sm-auto my-1">
               <button class="btn btn-light text-decoration-none">
                 <a
-                  href="{% url 'analista_projects' %}"
+                  href="{% url 'analista_project' ticket.project_id %}"
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
@@ -97,93 +98,66 @@
             </div>
           </div>
 
-          {% block content %}
-          <div class="container my-5">
-            <h2 class="my-1">
-              <strong>{{project.name}}</strong>
-            </h2>
-            <div class="container my-2">
-              <span>Description:</span> <br />
-              {{project.description}}
-            </div>
-            <div class="row">
-              <div class="col-sm-auto my-1">
-                <button
-                  type="button"
-                  class="btn btn-light"
-                  data-bs-toggle="modal"
-                  data-bs-target="#myModal"
-                >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span>Add Ticket</span>
-                </button>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card bg-light text-dark p-3 my-1">
+                <h1>{{ticket.title}}</h1>
+                <strong><label for="description">Description:</label></strong>
+                <p name="description">{{ticket.description}}</p>
+
+                <!-- Crear comentario -->
               </div>
-            </div>
 
-            <div class="container my-2">
-              <!-- The Modal -->
-              <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title">Modal Heading</h4>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                      ></button>
+              <div class="card bg-light text-dark p-3 my-1">
+                <form method="POST">
+                  {% csrf_token %} {{commentform.as_p}}
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary my-2">
+                      Add Comment
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="card bg-light text-dark p-3 my-1">
+                <strong>Comments:</strong>
+                <div class="card-body">
+                  <div class="card bg-light text-dark">
+                    <div class="card-body">
+                      <h4 class="card-title">Card title</h4>
+                      {{ comments.content }}
                     </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                      <form method="POST" class="form-control">
-                        {% csrf_token %} {{ticketform.as_p}}
-                        <div class="d-flex justify-content-center my-1">
-                          <button type="submit" class="btn btn-secondary my-2">
-                            Add Ticket
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-
-                    <!-- Modal footer -->
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- end Modal -->
-              <table class="table table-hover table-sm">
-                <thead>
-                  <tr>
-                    <th>Ticket Title</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Responsible User</th>
-                  </tr>
-                </thead>
-                {% for tickets in ticket %}
-                <tbody>
-                  <tr>
-                    <td>
-                      <a
-                        href="{% url 'ticketanalista' tickets.id %}"
-                        class="text-decoration-none text-dark"
-                      >
-                        {{tickets.title}}
-                      </a>
-                    </td>
-                    <td>{{tickets.get_status_display}}</td>
-                    <td>{{tickets.priority}}</td>
-                    <td>{{tickets.responsible_user}}</td>
-                  </tr>
-                </tbody>
-                {% endfor %}
-              </table>
+            <div class="col-md-4">
+              <div class="card bg-light text-dark p-2">
+                <strong>
+                  <label for="user">Responsible User:</label>
+                </strong>
+                <p name="user">{{ ticket.responsible_user }}</p>
+
+                <strong>
+                  <label for="project">Project:</label>
+                </strong>
+                <p name="project">{{ ticket.project }}</p>
+
+                <strong>
+                  <label for="priority">Priority:</label>
+                </strong>
+                <p name="priority">{{ ticket.priority }}</p>
+
+                <strong>
+                  <label for="status">Status:</label>
+                </strong>
+                <p name="status">{{ ticket.get_status_display }}</p>
+              </div>
             </div>
           </div>
-          {% endblock %}
         </div>
+        {% endblock %}
       </div>
     </div>
 

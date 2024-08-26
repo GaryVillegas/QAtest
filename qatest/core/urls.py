@@ -17,5 +17,6 @@ urlpatterns=[
     path('analista', analista, name='analista'),
     path('analista_projects', analista_projects, name='analista_projects'),
     path('analista_project/<int:project_id>', analista_project, name='analista_project'),
+    path('ticketanalista/<int:ticket_id>', ticketanalista, name='ticketanalista'),
     path('dev', dev, name='dev'),
 ]

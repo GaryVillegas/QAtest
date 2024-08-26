@@ -4,7 +4,9 @@ from .models import *
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+import pandas as pd
+from plotly.offline import plot
+import plotly.express as px
 
 # Create your views here.
 def index(request):
@@ -47,6 +49,7 @@ def logout_view(request):
     return redirect('index')
 
 def adminwindow(request):
+
     return render(request, 'core/admin/admin.html')
 
 def adduser(request):
@@ -205,6 +208,30 @@ def analista_project(request, project_id):
     }
     
     return render(request, 'core/analista/analista_project.html', context)
+
+def ticketanalista(request, ticket_id):
+    try:
+        ticket = Ticket.objects.get(id = ticket_id)
+        comment = CommentForm()
+        comments = Comment.objects.all()
+        if request.method == 'POST':
+            comment = CommentForm(request.POST)
+            if comment.is_valid():
+                comment = comment.save(commit=False)
+                comment.ticket = ticket
+                comment.user = request.user
+                comment.save()
+                redirect ('ticketanalista', ticket_id=ticket_id)
+        
+    except Ticket.DoesNotExist:
+        messages.error(request, 'ERROR')
+
+    context ={
+        'ticket': ticket,
+        'commentform': comment,
+        'comments': comments
+    }
+    return render(request, 'core/analista/ticketanalista.html', context)
 
 def dev(request):
     return render(request, 'core/dev/dev.html')
