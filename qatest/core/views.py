@@ -151,8 +151,12 @@ def addproject(request):
 def project(request, project_id):
     try: 
         projects = Project.objects.get(id=project_id)
+        ticket = Ticket.objects.filter(project = project_id)
+        ticketcount = Ticket.objects.filter(project = project_id).count()
         context = {
-            'project': projects
+            'project': projects,
+            'tickets': ticket,
+            'counticket': ticketcount
         }
     except Project.DoesNotExist:
         messages.error('error')
@@ -212,15 +216,15 @@ def analista_project(request, project_id):
 def ticketanalista(request, ticket_id):
     try:
         ticket = Ticket.objects.get(id = ticket_id)
-        comment = CommentForm()
-        comments = Comment.objects.all()
+        comment_form = CommentForm()
+        comments = Comment.objects.filter(ticket = ticket_id)
         if request.method == 'POST':
-            comment = CommentForm(request.POST)
-            if comment.is_valid():
-                comment = comment.save(commit=False)
-                comment.ticket = ticket
-                comment.user = request.user
-                comment.save()
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment_form.fields['content'].initial = ''
+                comment_form.ticket = ticket
+                comment_form.user = request.user
+                comment_form.save()
                 redirect ('ticketanalista', ticket_id=ticket_id)
         
     except Ticket.DoesNotExist:
@@ -228,7 +232,7 @@ def ticketanalista(request, ticket_id):
 
     context ={
         'ticket': ticket,
-        'commentform': comment,
+        'commentform': comment_form,
         'comments': comments
     }
     return render(request, 'core/analista/ticketanalista.html', context)
