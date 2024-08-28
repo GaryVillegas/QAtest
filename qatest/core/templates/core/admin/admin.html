@@ -95,10 +95,26 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
+          <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+              {% if not graf %}
+              <div class="alert alert-danger alert-dismissible">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                ></button>
+                Oh Data Not Found
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
           {% block content %}
           <div class="row">
             {% autoescape off %}
-            <div class="col-md-2">{{graf}}</div>
+            <div class="col-md-6">{{graf}}</div>
             {% endautoescape %}
           </div>
           {% endblock content %}

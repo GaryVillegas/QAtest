@@ -49,20 +49,28 @@ def logout_view(request):
     return redirect('index')
 
 def adminwindow(request):
-    qs = Ticket.objects.all()
-    ticket_data = [
-        {
-            'User': x.responsible_user.username,
-            'Tickets': x.id,
-            'Status': x.status
-        } for x in qs
-    ]
+    try:
+        qs = Ticket.objects.all()
+        ticket_data = [
+            {
+                'User': x.responsible_user.username,
+                'Tickets': x.id,
+                'Status': x.status
+            } for x in qs
+        ]
 
-    df = pd.DataFrame(ticket_data)
-    fig = px.bar(df, x="Status", y="User",  color="Tickets", orientation="h")
+        df = pd.DataFrame(ticket_data)
+        fig = px.pie(df, names="Status",  title="Tickets by Projects")
 
-    fig.update_yaxes(autorange="reversed")
-    gant_plot = plot(fig, output_type="div")
+        fig.update_yaxes(autorange="reversed")
+        gant_plot = plot(fig, output_type="div")
+    except Ticket.DoesNotExist:
+        gant_plot = None
+        messages.error(request, "No se han encontrado tickets.")
+    except Exception as e:
+        gant_plot = None
+        messages.error(request, f"Se produjo un error: {str(e)}")
+
     context = {
         'graf': gant_plot
     }

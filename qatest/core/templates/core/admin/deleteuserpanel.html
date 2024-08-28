@@ -131,13 +131,53 @@
                       {%endfor%}
                     </td>
                     <td>
-                      <button class="btn btn-danger">
-                        <a
-                          href="{% url 'deleteuser' user.id %}"
-                          class="text-decoration-none text-light"
-                          ><ion-icon name="trash-outline"></ion-icon
-                        ></a>
+                      <button
+                        class="btn btn-danger"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                      >
+                        <ion-icon name="trash-outline"></ion-icon>
                       </button>
+                      <!-- The Modal -->
+                      <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Are you sure?</h4>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                              ></button>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-dismiss="modal"
+                              >
+                                <a
+                                  href="{% url 'deleteuser' user.id %}"
+                                  class="text-decoration-none text-light"
+                                >
+                                  Yes
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-dismiss="modal"
+                              >
+                                No
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                   {% endfor %}
