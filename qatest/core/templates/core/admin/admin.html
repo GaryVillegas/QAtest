@@ -95,6 +95,13 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
+          {% block content %}
+          <div class="row">
+            {% autoescape off %}
+            <div class="col-md-2">{{graf}}</div>
+            {% endautoescape %}
+          </div>
+          {% endblock content %}
         </div>
       </div>
     </div>

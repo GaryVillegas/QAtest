@@ -49,8 +49,24 @@ def logout_view(request):
     return redirect('index')
 
 def adminwindow(request):
+    qs = Ticket.objects.all()
+    ticket_data = [
+        {
+            'User': x.responsible_user.username,
+            'Tickets': x.id,
+            'Status': x.status
+        } for x in qs
+    ]
 
-    return render(request, 'core/admin/admin.html')
+    df = pd.DataFrame(ticket_data)
+    fig = px.bar(df, x="Status", y="User",  color="Tickets", orientation="h")
+
+    fig.update_yaxes(autorange="reversed")
+    gant_plot = plot(fig, output_type="div")
+    context = {
+        'graf': gant_plot
+    }
+    return render(request, 'core/admin/admin.html', context)
 
 def adduser(request):
     
@@ -221,7 +237,7 @@ def ticketanalista(request, ticket_id):
         if request.method == 'POST':
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
-                comment_form.fields['content'].initial = ''
+                comment_form = comment_form.save(commit=False)
                 comment_form.ticket = ticket
                 comment_form.user = request.user
                 comment_form.save()
