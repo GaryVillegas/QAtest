@@ -7,6 +7,7 @@ from django.contrib import messages
 import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
+from django.forms import inlineformset_factory
 
 # Create your views here.
 def index(request):
@@ -214,25 +215,34 @@ def analista_project(request, project_id):
 
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
-        tickets = Ticket.objects.filter(project=projects)
-        ticket_form = TicketForm()
+        casos = Caso.objects.filter(project = projects)
+        casoform = CasoForm()
+        casocontenido = CasoContenidoForm()
         if request.method == 'POST':
-            ticket_form = TicketForm(request.POST)
-            if ticket_form.is_valid():
-                ticket_form.save()
-                ticket_form.fields['title'].initial = ''
-                ticket_form.fields['description'].initial = ''
-                ticket_form.fields['status'].initial = ''
-                ticket_form.fields['priority'].initial = ''
-                ticket_form.fields['responsible_user'].initial = ''
-                return redirect('analista_projects')
+            casoform = CasoForm(request.POST,)
+            casocontenido = CasoContenidoForm(request.POST,)
+            if casoform.is_valid() and casocontenido.is_valid():
+                casoform.save()
+                casocontenido.save()
+                casoform.fields['user'].initial = ''
+                casoform.fields['project'].initial = ''
+                casoform.fields['tipo'].initial = ''
+                casoform.fields['prioridad'].initial = ''
+                casoform.fields['estimado'].initial = ''
+                casocontenido.fields['precondicion'].initial = ''
+                casocontenido.fields['pasos'].initial = ''
+                casocontenido.fields['resultados_espederados'].initial = ''
+                return('analista_project', project_id == project_id)
+        
     except Project.DoesNotExist:
         messages.error(request, 'Error')
+        casos = None
 
     context = {
         'project': projects,
-        'ticket': tickets,
-        'ticketform': ticket_form
+        'casos': casos,
+        'casoform': casoform,
+        'casocontenido': casocontenido,
     }
     
     return render(request, 'core/analista/analista_project.html', context)

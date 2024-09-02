@@ -45,3 +45,36 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+    
+class Caso(models.Model):
+    tipo_caso = [
+        ('1','accesibilidad'), ('2', 'automatización'), ('3', 'compatibilidad'),
+        ('4', 'funcional'), ('5', 'rendimiento'), ('6', 'seguridad'), ('7', 'usabilidad'),
+        ('8', 'otro')
+    ]
+
+    prioridad_caso = [
+        ('1', 'bajo'), ('2', 'medio'), ('3', 'alto'), ('4', 'critico')
+    ]
+
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to=Q(groups__name__in=['analista', 'dev']), null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    tipo = models.IntegerField(choices=tipo_caso)
+    prioridad = models.IntegerField(choices=prioridad_caso)
+    estimado = models.TextField(max_length=10)
+
+    @property
+    def tipo_display(self):
+        return dict(self.tipo_caso).get(self.tipo, 'Desconocido')
+    
+    @property
+    def prioridad_display(self):
+        return dict(self.prioridad_caso).get(self.prioridad, 'Desconocido')
+    
+class CasoContenido(models.Model):
+
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
+    precondicion = models.TextField(max_length=150)
+    pasos = models.TextField(max_length=150)
+    resultados_esperados = models.TextField(max_length=150)

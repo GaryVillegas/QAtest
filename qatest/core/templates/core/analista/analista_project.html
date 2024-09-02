@@ -106,80 +106,71 @@
               <span>Description:</span> <br />
               {{project.description}}
             </div>
-            <div class="row">
-              <div class="col-sm-auto my-1">
-                <button
-                  type="button"
-                  class="btn btn-light"
-                  data-bs-toggle="modal"
-                  data-bs-target="#myModal"
-                >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span>Add Ticket</span>
-                </button>
-              </div>
-            </div>
+          </div>
 
-            <div class="container my-2">
-              <!-- The Modal -->
-              <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title">Modal Heading</h4>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                      ></button>
-                    </div>
+          <div class="container my-2">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Todo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Casos</a>
+              </li>
+            </ul>
+          </div>
+          <div class="container">
+            {% if not casos %}
+            <button
+              class="btn btn-primary text-decoration-none"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+            >
+              <ion-icon name="add-outline"></ion-icon>
+              <span>caso</span>
+            </button>
+            {% endif %}
+          </div>
 
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                      <form method="POST" class="form-control">
-                        {% csrf_token %} {{ticketform.as_p}}
-                        <div class="d-flex justify-content-center my-1">
-                          <button type="submit" class="btn btn-secondary my-2">
-                            Add Ticket
-                          </button>
-                        </div>
-                      </form>
+          <!-- Modal -->
+          <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Modal Heading</h4>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-sm-6">{{ casoform.as_p }}</div>
+                      <div class="col-sm-6">{{casocontenido.as_p}}</div>
                     </div>
 
                     <!-- Modal footer -->
-                  </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">
+                        Guardar
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
-
-              <!-- end Modal -->
-              <table class="table table-hover table-sm">
-                <thead>
-                  <tr>
-                    <th>Ticket Title</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Responsible User</th>
-                  </tr>
-                </thead>
-                {% for tickets in ticket %}
-                <tbody>
-                  <tr>
-                    <td>
-                      <a
-                        href="{% url 'ticketanalista' tickets.id %}"
-                        class="text-decoration-none text-dark"
-                      >
-                        {{tickets.title}}
-                      </a>
-                    </td>
-                    <td>{{tickets.get_status_display}}</td>
-                    <td>{{tickets.priority}}</td>
-                    <td>{{tickets.responsible_user}}</td>
-                  </tr>
-                </tbody>
-                {% endfor %}
-              </table>
             </div>
           </div>
           {% endblock %}
