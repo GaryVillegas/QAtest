@@ -63,6 +63,9 @@ class Caso(models.Model):
     tipo = models.IntegerField(choices=tipo_caso)
     prioridad = models.IntegerField(choices=prioridad_caso)
     estimado = models.TextField(max_length=10)
+    precondicion = models.TextField(max_length=150, null=True, blank=True)
+    pasos = models.TextField(max_length=150, null=True, blank=True)
+    resultados_esperados = models.TextField(max_length=150, null=True, blank=True)
 
     @property
     def tipo_display(self):
@@ -72,9 +75,3 @@ class Caso(models.Model):
     def prioridad_display(self):
         return dict(self.prioridad_caso).get(self.prioridad, 'Desconocido')
     
-class CasoContenido(models.Model):
-
-    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
-    precondicion = models.TextField(max_length=150)
-    pasos = models.TextField(max_length=150)
-    resultados_esperados = models.TextField(max_length=150)

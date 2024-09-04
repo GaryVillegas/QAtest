@@ -216,23 +216,7 @@ def analista_project(request, project_id):
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
         casos = Caso.objects.filter(project = projects)
-        casoform = CasoForm()
-        casocontenido = CasoContenidoForm()
-        if request.method == 'POST':
-            casoform = CasoForm(request.POST,)
-            casocontenido = CasoContenidoForm(request.POST,)
-            if casoform.is_valid() and casocontenido.is_valid():
-                casoform.save()
-                casocontenido.save()
-                casoform.fields['user'].initial = ''
-                casoform.fields['project'].initial = ''
-                casoform.fields['tipo'].initial = ''
-                casoform.fields['prioridad'].initial = ''
-                casoform.fields['estimado'].initial = ''
-                casocontenido.fields['precondicion'].initial = ''
-                casocontenido.fields['pasos'].initial = ''
-                casocontenido.fields['resultados_espederados'].initial = ''
-                return('analista_project', project_id == project_id)
+        
         
     except Project.DoesNotExist:
         messages.error(request, 'Error')
@@ -241,8 +225,6 @@ def analista_project(request, project_id):
     context = {
         'project': projects,
         'casos': casos,
-        'casoform': casoform,
-        'casocontenido': casocontenido,
     }
     
     return render(request, 'core/analista/analista_project.html', context)
