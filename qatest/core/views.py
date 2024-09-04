@@ -51,7 +51,7 @@ def logout_view(request):
 
 def adminwindow(request):
     try:
-        qs = Ticket.objects.all()
+        qs = Caso.objects.all()
         ticket_data = [
             {
                 'User': x.responsible_user.username,
@@ -65,7 +65,7 @@ def adminwindow(request):
 
         fig.update_yaxes(autorange="reversed")
         gant_plot = plot(fig, output_type="div")
-    except Ticket.DoesNotExist:
+    except Caso.DoesNotExist:
         gant_plot = None
         messages.error(request, "No se han encontrado tickets.")
     except Exception as e:
@@ -176,8 +176,8 @@ def addproject(request):
 def project(request, project_id):
     try: 
         projects = Project.objects.get(id=project_id)
-        ticket = Ticket.objects.filter(project = project_id)
-        ticketcount = Ticket.objects.filter(project = project_id).count()
+        ticket = Caso.objects.filter(project = project_id)
+        ticketcount = Caso.objects.filter(project = project_id).count()
         context = {
             'project': projects,
             'tickets': ticket,
@@ -216,42 +216,28 @@ def analista_project(request, project_id):
     try:
         projects = Project.objects.get(id=project_id, responsible_user = actual_user)
         casos = Caso.objects.filter(project = projects)
-        
+        casoform = CasoForm()
+        if request.method == 'POST':
+            casoform = CasoForm(request.POST)
+            if casoform.is_valid():
+                caso = casoform.save(commit=False)
+                caso.user = request.user
+                caso.project = project
+                caso.save()
+                return redirect('analista_project', project_id=project_id)
         
     except Project.DoesNotExist:
         messages.error(request, 'Error')
         casos = None
+        projects = None
 
     context = {
         'project': projects,
         'casos': casos,
+        'casoform': casoform
     }
     
     return render(request, 'core/analista/analista_project.html', context)
-
-def ticketanalista(request, ticket_id):
-    try:
-        ticket = Ticket.objects.get(id = ticket_id)
-        comment_form = CommentForm()
-        comments = Comment.objects.filter(ticket = ticket_id)
-        if request.method == 'POST':
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                comment_form = comment_form.save(commit=False)
-                comment_form.ticket = ticket
-                comment_form.user = request.user
-                comment_form.save()
-                redirect ('ticketanalista', ticket_id=ticket_id)
-        
-    except Ticket.DoesNotExist:
-        messages.error(request, 'ERROR')
-
-    context ={
-        'ticket': ticket,
-        'commentform': comment_form,
-        'comments': comments
-    }
-    return render(request, 'core/analista/ticketanalista.html', context)
 
 def dev(request):
     return render(request, 'core/dev/dev.html')
