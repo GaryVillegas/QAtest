@@ -170,6 +170,31 @@
               </div>
             </div>
           </div>
+
+          <div class="container">
+            <div class="row">
+              {% autoescape off %}
+              <div class="col-sm-6">{{graf}}</div>
+              {% endautoescape %}
+              <div class="col-sm-6">
+                {% for caso in casos %}
+                <h2>Casos</h2>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Titulo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{caso.titulo}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
           {% endblock %}
         </div>
       </div>

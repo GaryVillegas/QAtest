@@ -19,6 +19,14 @@ class Caso(models.Model):
         ('8', 'otro')
     ]
 
+    estado_caso = [
+        ('1', 'Sin Empezar'),
+        ('2', 'Aprobado'),
+        ('3', 'Bloqueado'),
+        ('4', 'Retesteado'),
+        ('5', 'Fallido'),
+    ]
+
     prioridad_caso = [
         ('1', 'bajo'), ('2', 'medio'), ('3', 'alto'), ('4', 'critico')
     ]
@@ -27,8 +35,9 @@ class Caso(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to=Q(groups__name__in=['analista', 'dev']), null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=20, null=True, blank=True)
-    tipo = models.CharField(max_length=1, choices=tipo_caso)
-    prioridad = models.CharField(max_length=1, choices=prioridad_caso)
+    tipo = models.CharField(max_length=1, choices=tipo_caso, default=1)
+    estado = models.CharField(max_length=1, choices=estado_caso, default=1)
+    prioridad = models.CharField(max_length=1, choices=prioridad_caso, default=1)
     estimado = models.CharField(max_length=10)
     precondicion = models.TextField(max_length=150, null=True, blank=True)
     pasos = models.TextField(max_length=150, null=True, blank=True)
@@ -41,6 +50,10 @@ class Caso(models.Model):
     @property
     def prioridad_display(self):
         return dict(self.prioridad_caso).get(self.prioridad, 'Desconocido')
+    
+    @property
+    def estado_display(self):
+        return dict(self.estado_caso).get(self.estado, 'Desconocido')
 
 class Comment(models.Model):
     id = models.BigAutoField(primary_key=True)

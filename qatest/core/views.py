@@ -222,19 +222,33 @@ def analista_project(request, project_id):
             if casoform.is_valid():
                 caso = casoform.save(commit=False)
                 caso.user = request.user
-                caso.project = project
+                caso.project = projects
                 caso.save()
                 return redirect('analista_project', project_id=project_id)
+            
+        qs = casos
+        casos_data = [
+            {
+                'estado': x.estado_display,
+                'titulo': x.project.name
+            } for x in qs
+        ]
+        df = pd.DataFrame(casos_data)
+        fig = px.pie(df, names='estado', title='titulo')
+        fig.update_yaxes(autorange="reversed")
+        gant_plot = plot(fig, output_type="div")
         
     except Project.DoesNotExist:
         messages.error(request, 'Error')
         casos = None
         projects = None
+        gant_plot = None
 
     context = {
         'project': projects,
         'casos': casos,
-        'casoform': casoform
+        'casoform': casoform,
+        'graf': gant_plot
     }
     
     return render(request, 'core/analista/analista_project.html', context)
