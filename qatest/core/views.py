@@ -234,7 +234,14 @@ def analista_project(request, project_id):
             } for x in qs
         ]
         df = pd.DataFrame(casos_data)
-        fig = px.pie(df, names='estado', title='titulo')
+        colors = {
+            'Sin Empezar': 'grey',
+            'Aprobado': 'green',
+            'Bloqueado': 'yellow',
+            'Retesteado': 'orange',
+            'Fallida': 'red'
+        }
+        fig = px.pie(df, names='estado', color='estado', color_discrete_map=colors)
         fig.update_yaxes(autorange="reversed")
         gant_plot = plot(fig, output_type="div")
         

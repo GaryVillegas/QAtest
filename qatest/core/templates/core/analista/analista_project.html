@@ -111,10 +111,9 @@
           <div class="container my-2">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Todo</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Casos</a>
+                <a class="nav-link active" aria-current="page" href="#">
+                  Casos
+                </a>
               </li>
             </ul>
           </div>
@@ -177,21 +176,34 @@
               <div class="col-sm-6">{{graf}}</div>
               {% endautoescape %}
               <div class="col-sm-6">
-                {% for caso in casos %}
-                <h2>Casos</h2>
+                <div class="d-flex justify-content-between">
+                  <h2>Casos</h2>
+                  <button
+                    class="btn btn-primary text-decoration-none"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <ion-icon name="add-outline"></ion-icon>
+                    <span>caso</span>
+                  </button>
+                </div>
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>Titulo</th>
+                      <th>Estado</th>
                     </tr>
                   </thead>
+                  {% for caso in casos %}
                   <tbody>
                     <tr>
                       <td>{{caso.titulo}}</td>
+                      <td>{{caso.estado_display}}</td>
                     </tr>
                   </tbody>
+                  {% endfor %}
                 </table>
-                {% endfor %}
               </div>
             </div>
           </div>
