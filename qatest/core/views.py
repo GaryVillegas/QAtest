@@ -60,20 +60,24 @@ def generate_plot_admin(qs):
         'Aprobado': 'green',
         'Bloqueado': 'yellow',
         'Retesteado': 'orange',
-        'Fallida': 'red',
+        'Fallido': 'red', 
     }
-    fig = px.pie(df, names='estado', title='title', color='estado', color_discrete_map=colors)
+    fig = px.pie(df, names='estado', title='Estado de los Casos', color='estado', color_discrete_map=colors)
     fig.update_traces(textposition='inside', textinfo='percent+label')
-    fig.update_yaxes(autorange='reversed')
+    fig.update_layout(showlegend=False)
     return plot(fig, output_type='div')
 
 def adminwindow(request):
     qs = Caso.objects.all()
-    gant_plot = generate_plot_admin(qs)
-
-    context = {
-        'graf': gant_plot
-    }
+    if qs.exists():
+        pie_plot = generate_plot_admin(qs)
+        context = {
+            'graf': pie_plot
+        }
+    else:
+        context = {
+            'graf': '<div>No hay datos disponibles para generar el gráfico.</div>'
+        }
     return render(request, 'core/admin/admin.html', context)
 
 def adduser(request):
@@ -212,7 +216,7 @@ def analista_projects(request):
 def analista_project(request, project_id):
     actual_user = request.user
     project = get_object_or_404(Project, id=project_id, responsible_user=actual_user)
-    casos = Caso.objects.filter(project = project)
+    casos = Caso.objects.filter(project=project)
 
     if request.method == 'POST':
         casoform = CasoForm(request.POST)
@@ -223,7 +227,8 @@ def analista_project(request, project_id):
             caso.save()
             return redirect('analista_project', project_id=project_id)
     else:
-        casoform = CasoForm()
+        casoform = CasoForm(initial={'user': request.user})
+        casoform.fields['project'].queryset = Project.objects.filter(responsible_user=actual_user)
 
     gant_plot = generate_plot_analista(casos)    
 
@@ -237,14 +242,45 @@ def analista_project(request, project_id):
     return render(request, 'core/analista/analista_project.html', context)
 
 def generate_plot_analista(casos):
-    casos_data=[{
+    casos_data = [{
         'estado': caso.estado_display,
         'titulo': caso.project.name
     } for caso in casos]
     df = pd.DataFrame(casos_data)
-    fig = px.pie(df, names='estado', title='titulo')
-    fig.update_yaxes(autorange="reversed")
+    if df.empty:
+        return '<div>No hay datos disponibles para generar el gráfico.</div>'
+    colors = {
+        'Sin Empezar': 'grey',
+        'Aprobado': 'green',
+        'Bloqueado': 'yellow',
+        'Retesteado': 'orange',
+        'Fallido': 'red',
+    }
+    fig = px.pie(df, names='estado', title='Estado de los Casos', color='estado', color_discrete_map=colors)
+    fig.update_traces(textposition='inside', textinfo='percent+label')
+    fig.update_layout(showlegend=False)
     return plot(fig, output_type="div")
+
+def caso(request, caso_id):
+    caso = get_object_or_404(Caso, id=caso_id)
+    comments = Comment.objects.filter(caso=caso)
+    if comments == None:
+        comments = None
+    commentform = CommentForm()
+    if request.method == 'POST':
+        commentform = CommentForm(request.POST)
+        if commentform.is_valid():
+            comment = commentform.save(commit=False)
+            comment.user = request.user
+            comment.caso = caso
+            comment.save()
+            return redirect('caso', caso_id=caso_id)
+    context = {
+        'caso': caso,
+        'comments': comments,
+        'commentform': commentform
+    }
+    return render(request, 'core/analista/caso.html', context)
 
 def dev(request):
     return render(request, 'core/dev/dev.html')

@@ -59,8 +59,8 @@ class Comment(models.Model):
     id = models.BigAutoField(primary_key=True)
     caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    comentario = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.content
+        return self.comentario

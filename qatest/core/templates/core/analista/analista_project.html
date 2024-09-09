@@ -198,8 +198,22 @@
                   {% for caso in casos %}
                   <tbody>
                     <tr>
-                      <td>{{caso.titulo}}</td>
-                      <td>{{caso.estado_display}}</td>
+                      <td>
+                        <a
+                          href="{% url 'caso' caso.id %}"
+                          class="text-dark text-decoration-none"
+                        >
+                          {{caso.titulo}}
+                        </a>
+                      </td>
+                      <td>
+                        <a
+                          href="{% url 'caso' caso.id %}"
+                          class="text-dark text-decoration-none"
+                        >
+                          {{caso.estado_display}}
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                   {% endfor %}

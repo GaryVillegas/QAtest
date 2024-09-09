@@ -74,3 +74,11 @@ class CasoForm(forms.ModelForm):
                 'resultados_esperados'
             )
         )
+    
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comentario']
+        widgets = {
+            'comentario': forms.Textarea(attrs={'class': 'form-control', 'type': 'text'})
+        }
