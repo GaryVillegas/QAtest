@@ -212,46 +212,40 @@ def analista_projects(request):
 
 def analista_project(request, project_id):
     actual_user = request.user
+    project = get_object_or_404(Project, id=project_id, responsible_user=actual_user)
+    casos = Caso.objects.filter(project = project)
 
-    try:
-        projects = Project.objects.get(id=project_id, responsible_user = actual_user)
-        casos = Caso.objects.filter(project = projects)
+    if request.method == 'POST':
+        casoform = CasoForm(request.POST)
+        if casoform.is_valid():
+            caso = casoform.save(commit=False)
+            caso.user = request.user
+            caso.project = project
+            caso.save()
+            return redirect('analista_project', project_id=project_id)
+    else:
         casoform = CasoForm()
-        if request.method == 'POST':
-            casoform = CasoForm(request.POST)
-            if casoform.is_valid():
-                caso = casoform.save(commit=False)
-                caso.user = request.user
-                caso.project = projects
-                caso.save()
-                return redirect('analista_project', project_id=project_id)
-            
-        qs = casos
-        casos_data = [
-            {
-                'estado': x.estado_display,
-                'titulo': x.project.name
-            } for x in qs
-        ]
-        df = pd.DataFrame(casos_data)
-        fig = px.pie(df, names='estado', title='titulo')
-        fig.update_yaxes(autorange="reversed")
-        gant_plot = plot(fig, output_type="div")
-        
-    except Project.DoesNotExist:
-        messages.error(request, 'Error')
-        casos = None
-        projects = None
-        gant_plot = None
+
+    gant_plot = generate_plot(casos)    
 
     context = {
-        'project': projects,
+        'project': project,
         'casos': casos,
         'casoform': casoform,
         'graf': gant_plot
     }
     
     return render(request, 'core/analista/analista_project.html', context)
+
+def generate_plot(casos):
+    casos_data=[{
+        'estado': caso.estado_display,
+        'titulo': caso.project.name
+    } for caso in casos]
+    df = pd.DataFrame(casos_data)
+    fig = px.pie(df, names='estado', title='titulo')
+    fig.update_yaxes(autorange="reversed")
+    return plot(fig, output_type="div")
 
 def dev(request):
     return render(request, 'core/dev/dev.html')
