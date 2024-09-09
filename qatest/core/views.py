@@ -179,12 +179,12 @@ def addproject(request):
 def project(request, project_id):
     try: 
         projects = Project.objects.get(id=project_id)
-        ticket = Caso.objects.filter(project = project_id)
-        ticketcount = Caso.objects.filter(project = project_id).count()
+        caso = Caso.objects.filter(project = project_id)
+        casocount = Caso.objects.filter(project = project_id).count()
         context = {
             'project': projects,
-            'tickets': ticket,
-            'counticket': ticketcount
+            'casos': caso,
+            'countcasos': casocount
         }
     except Project.DoesNotExist:
         messages.error('error')
@@ -280,7 +280,7 @@ def caso(request, caso_id):
         'comments': comments,
         'commentform': commentform
     }
-    return render(request, 'core/analista/caso.html', context)
+    return render(request, 'core/caso.html', context)
 
 def dev(request):
     return render(request, 'core/dev/dev.html')

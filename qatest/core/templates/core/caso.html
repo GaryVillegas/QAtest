@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>analista</title>
+    <title>{{request.user}}</title>
     <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
     <!-- bootstrap -->
     <link
@@ -87,13 +87,28 @@
           <div class="row">
             <div class="col-sm-auto my-1">
               <button class="btn btn-light text-decoration-none">
+                {% if request.user.groups.all.0.name == 'dev' %}
+                <a
+                  href="{% url 'dev_project' caso.project.id %}"
+                  class="text-decoration-none text-dark"
+                  ><ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Atras</span>
+                </a>
+                {% elif request.user.groups.all.0.name == 'analista' %}
                 <a
                   href="{% url 'analista_project' caso.project.id %}"
                   class="text-decoration-none text-dark"
-                >
-                  <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
+                  ><ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Atras</span>
                 </a>
+                {% elif request.user.groups.all.0.name == 'administrador' %}
+                <a
+                  href="{% url 'project' caso.project.id %}"
+                  class="text-decoration-none text-dark"
+                  ><ion-icon name="arrow-back-outline"></ion-icon>
+                  <span>Atras</span>
+                </a>
+                {% endif %}
               </button>
             </div>
 

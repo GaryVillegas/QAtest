@@ -103,27 +103,53 @@
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
+                  <span>Atras</span>
                 </a>
               </button>
             </div>
 
             {% block content%}
             <div class="container my-5">
-              <h2 class="my-1">{{project.name}}</h2>
-              <div class="container my-2">
-                <span>Description:</span> <br />
-                {{project.description}}
+              <div class="row">
+                <div class="col-sm-6">
+                  <h2 class="my-1">{{project.name}}</h2>
+                  <span>Descripción:</span> <br />
+                  {{project.description}}
+                </div>
+                <div class="col-sm-6">
+                  <strong>
+                    <span>Usuario responsable:</span>
+                  </strong>
+                  <br />
+                  {{project.responsible_user.username}}
+                </div>
               </div>
             </div>
 
             <div class="container my-2 p-2 scroll">
-              <h2>Tickets</h2>
-              <p>Total tickets: {{counticket}}</p>
-              {% for ticket in tickets %}
-              <div class="card my-1 p-1">
+              <h2>Casos</h2>
+              <p>Total casos: {{countcasos}}</p>
+              {% for caso in casos %}
+              <div class="card my-1 p-1" style="width: 18rem">
                 <div class="card-body">
-                  <h4 class="card-title">{{ticket.title}}</h4>
+                  <h4 class="card-title">
+                    <strong
+                      ><a
+                        href="{% url 'caso' caso.id %}"
+                        class="text-decoration-none text-dark"
+                        >{{caso.titulo}}</a
+                      ></strong
+                    >
+                  </h4>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Tipo: {{caso.tipo_display}}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Estado: {{caso.estado_display}}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Prioridad: {{caso.prioridad_display}}
+                  </h6>
                 </div>
               </div>
               {% endfor %}
