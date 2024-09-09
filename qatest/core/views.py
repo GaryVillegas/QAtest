@@ -56,7 +56,7 @@ def generate_plot_admin(qs):
     } for x in qs]
     df = pd.DataFrame(casos_data)
     colors = {
-        'Sin Empezar': 'grey',
+        'Sin Ejecutar': 'grey',
         'Aprobado': 'green',
         'Bloqueado': 'yellow',
         'Retesteado': 'orange',
@@ -250,7 +250,7 @@ def generate_plot_analista(casos):
     if df.empty:
         return '<div>No hay datos disponibles para generar el gráfico.</div>'
     colors = {
-        'Sin Empezar': 'grey',
+        'Sin Ejecutar': 'grey',
         'Aprobado': 'green',
         'Bloqueado': 'yellow',
         'Retesteado': 'orange',

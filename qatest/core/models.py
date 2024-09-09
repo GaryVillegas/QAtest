@@ -20,7 +20,7 @@ class Caso(models.Model):
     ]
 
     estado_caso = [
-        ('1', 'Sin Empezar'),
+        ('1', 'Sin Ejecutar'),
         ('2', 'Aprobado'),
         ('3', 'Bloqueado'),
         ('4', 'Retesteado'),
