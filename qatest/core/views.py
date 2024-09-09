@@ -49,28 +49,27 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
+def generate_plot_admin(qs):
+    casos_data = [{
+        'estado': x.estado_display,
+        'title': x.project.name
+    } for x in qs]
+    df = pd.DataFrame(casos_data)
+    colors = {
+        'Sin Empezar': 'grey',
+        'Aprobado': 'green',
+        'Bloqueado': 'yellow',
+        'Retesteado': 'orange',
+        'Fallida': 'red',
+    }
+    fig = px.pie(df, names='estado', title='title', color='estado', color_discrete_map=colors)
+    fig.update_traces(textposition='inside', textinfo='percent+label')
+    fig.update_yaxes(autorange='reversed')
+    return plot(fig, output_type='div')
+
 def adminwindow(request):
-    try:
-        qs = Caso.objects.all()
-        ticket_data = [
-            {
-                'User': x.responsible_user.username,
-                'Tickets': x.id,
-                'Status': x.status
-            } for x in qs
-        ]
-
-        df = pd.DataFrame(ticket_data)
-        fig = px.pie(df, names="Status",  title="Tickets by Projects")
-
-        fig.update_yaxes(autorange="reversed")
-        gant_plot = plot(fig, output_type="div")
-    except Caso.DoesNotExist:
-        gant_plot = None
-        messages.error(request, "No se han encontrado tickets.")
-    except Exception as e:
-        gant_plot = None
-        messages.error(request, f"Se produjo un error: {str(e)}")
+    qs = Caso.objects.all()
+    gant_plot = generate_plot_admin(qs)
 
     context = {
         'graf': gant_plot
@@ -226,7 +225,7 @@ def analista_project(request, project_id):
     else:
         casoform = CasoForm()
 
-    gant_plot = generate_plot(casos)    
+    gant_plot = generate_plot_analista(casos)    
 
     context = {
         'project': project,
@@ -237,7 +236,7 @@ def analista_project(request, project_id):
     
     return render(request, 'core/analista/analista_project.html', context)
 
-def generate_plot(casos):
+def generate_plot_analista(casos):
     casos_data=[{
         'estado': caso.estado_display,
         'titulo': caso.project.name

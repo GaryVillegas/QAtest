@@ -114,7 +114,7 @@
           {% block content %}
           <div class="row">
             {% autoescape off %}
-            <div class="col-md-6">{{graf}}</div>
+            <div class="col-md-6">{{ graf|safe }}</div>
             {% endautoescape %}
           </div>
           {% endblock content %}
