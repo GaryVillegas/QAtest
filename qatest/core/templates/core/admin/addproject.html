@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Project</title>
+    <title>Añadir Proyecto</title>
     <link rel="stylesheet" href="{% static '' %}" />
     <!-- bootstrap -->
     <link
@@ -104,7 +104,7 @@
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
+                  <span>Atras</span>
                 </a>
               </button>
             </div>
@@ -113,12 +113,14 @@
                 class="row d-flex justify-content-center align-items-center h-95"
               >
                 <div class="card-body py-5">
-                  <h2 class="text-uppercase text-center mb-5">New Project</h2>
+                  <h2 class="text-uppercase text-center mb-5">
+                    Nuevo Proyecto
+                  </h2>
                   <form method="POST" class="form">
                     {% csrf_token %} {{projectform.as_p}}
                     <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-secondary my-2">
-                        Add Project
+                        Añadir Proyecto
                       </button>
                     </div>
                   </form>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add User</title>
+    <title>Añadir Usuario</title>
     <link rel="stylesheet" href="{% static 'css/adduser.css' %}" />
     <!-- Bootstrap -->
     <link
@@ -103,7 +103,7 @@
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
+                  <span>Atras</span>
                 </a>
               </button>
             </div>
@@ -116,14 +116,14 @@
               <div class="card" style="border-radius: 15px">
                 <div class="card-body p-5">
                   <h2 class="text-uppercase text-center mb-5">
-                    Create an account
+                    Crear Usuario Nuevo
                   </h2>
                   {% block content %}
                   <form method="POST" autocomplete="off">
                     {% csrf_token %} {{usercreate.as_p}}
                     <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-secondary my-2">
-                        Add User
+                        Añadir Usuario
                       </button>
                     </div>
                   </form>

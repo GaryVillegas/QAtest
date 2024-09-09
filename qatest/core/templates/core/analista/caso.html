@@ -97,7 +97,7 @@
               </button>
             </div>
 
-            <div class="container my-5">
+            <div class="container my-2">
               {% block content %}
               <h3>{{caso.titulo}}</h3>
               <div class="card mb-4">
@@ -156,7 +156,7 @@
               </div>
               <div class="container">
                 <form method="POST">
-                  {% csrf_token %} {{commentform}}
+                  {% csrf_token %} <strong> {{commentform}} </strong>
                   <button type="submit" class="btn btn-primary my-2">
                     Enviar
                   </button>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects</title>
+    <title>Panel de Eliminación</title>
     <link rel="stylesheet" href="{% static '' %}" />
     <!-- bootstrap -->
     <link
@@ -104,19 +104,19 @@
                   class="text-decoration-none text-dark"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
-                  <span>Back</span>
+                  <span>Atras</span>
                 </a>
               </button>
             </div>
           </div>
 
           <div class="container my-5">
-            <h2>Projects</h2>
+            <h2>Proyectos</h2>
             <div class="table-reponsive">
               <table class="table table-hover table-sm">
                 <thead>
                   <tr>
-                    <th>Project Name</th>
+                    <th>Nombre de Proyectos</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -142,7 +142,7 @@
                           <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                              <h4 class="modal-title">Are you sure?</h4>
+                              <h4 class="modal-title">¿Estás seguro?</h4>
                               <button
                                 type="button"
                                 class="btn-close"
@@ -161,7 +161,7 @@
                                   href="{% url 'deleteproject' projects.id %}"
                                   class="text-decoration-none text-light"
                                 >
-                                  Yes
+                                  Si
                                 </a>
                               </button>
                               <button

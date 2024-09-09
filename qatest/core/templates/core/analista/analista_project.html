@@ -206,14 +206,7 @@
                           {{caso.titulo}}
                         </a>
                       </td>
-                      <td>
-                        <a
-                          href="{% url 'caso' caso.id %}"
-                          class="text-dark text-decoration-none"
-                        >
-                          {{caso.estado_display}}
-                        </a>
-                      </td>
+                      <td>{{caso.estado_display}}</td>
                     </tr>
                   </tbody>
                   {% endfor %}
