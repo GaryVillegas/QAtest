@@ -125,7 +125,19 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files (Uploaded images, documents, etc.)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Document storage settings
+DOCUMENT_TYPES = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx']
+MAX_UPLOAD_SIZE = 5242880  # 5MB
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Comentario: Para manejar archivos de Microsoft Office y PDF, se recomienda instalar los siguientes paquetes con pip:
+# pip install python-magic
+# pip install django-file-validator

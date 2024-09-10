@@ -95,27 +95,38 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
-          <div class="row">
-            <div class="col-md-8"></div>
-            <div class="col-md-4">
-              {% if not graf %}
-              <div class="alert alert-danger alert-dismissible">
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="alert"
-                ></button>
-                Datos no encontrados
-              </div>
-              {% endif %}
-            </div>
+          <div class="my-2">
+            <h1>Bienvenido administrador</h1>
           </div>
-
           {% block content %}
           <div class="row">
             {% autoescape off %}
             <div class="col-md-6">{{ graf|safe }}</div>
             {% endautoescape %}
+          </div>
+          <div class="container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre de Usuario</th>
+                  <th>Nombre de Proyecto</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for project in projects %}
+                <tr>
+                  <td>{{project.responsible_user}}</td>
+                  <td>
+                    <a
+                      href="{% url 'project' project.id %}"
+                      class="text-decoration-none text-dark"
+                      >{{project.name}}</a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
           {% endblock content %}
         </div>

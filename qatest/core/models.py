@@ -64,3 +64,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comentario
+
+class Image(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='media/images/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.image.name

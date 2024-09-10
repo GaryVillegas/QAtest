@@ -68,16 +68,13 @@ def generate_plot_admin(qs):
     return plot(fig, output_type='div')
 
 def adminwindow(request):
-    qs = Caso.objects.all()
-    if qs.exists():
-        pie_plot = generate_plot_admin(qs)
-        context = {
-            'graf': pie_plot
-        }
-    else:
-        context = {
-            'graf': '<div>No hay datos disponibles para generar el gráfico.</div>'
-        }
+    casos = Caso.objects.all()
+    projects = Project.objects.all()
+    
+    context = {
+        'projects': projects,
+        'graf': generate_plot_admin(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>'
+    }
     return render(request, 'core/admin/admin.html', context)
 
 def adduser(request):
@@ -200,8 +197,15 @@ def deleteproject(request, pk):
         return redirect('deleteprojectpanel')
 
 def analista(request):
-    
-    return render(request, 'core/analista/analista.html')
+    casos = Caso.objects.all()
+    gant_plot = generate_plot_analista(casos)
+
+    context = {
+        'casos': casos,
+        'graf': gant_plot
+    }
+
+    return render(request, 'core/analista/analista.html', context)
 
 def analista_projects(request):
     try:

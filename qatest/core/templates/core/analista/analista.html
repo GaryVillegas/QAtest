@@ -85,7 +85,34 @@
           <!-- content -->
           {% if user.is_authenticated%}
           <h1>Bienvenid@ {{user.username}}</h1>
-          {% endif %}
+          {% endif %} {% autoescape off %}
+          <div class="col-md-6 my-2">{{ graf|safe }}</div>
+          {% endautoescape %}
+
+          <div class="container">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Caso</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for caso in casos %}
+                <tr>
+                  <td>
+                    <a
+                      href="{% url 'caso' caso.id %}"
+                      class="text-decoration-none text-dark"
+                      >{{caso.titulo}}</a
+                    >
+                  </td>
+                  <td>{{caso.estado}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
