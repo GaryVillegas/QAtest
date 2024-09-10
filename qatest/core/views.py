@@ -204,8 +204,12 @@ def analista(request):
     return render(request, 'core/analista/analista.html')
 
 def analista_projects(request):
-    actual_user = request.user
-    projects = Project.objects.filter(responsible_user = actual_user)
+    try:
+        actual_user = request.user
+        projects = Project.objects.filter(responsible_user = actual_user)
+    except Project.DoesNotExist:
+        messages.error("Error al buscar la tabla")
+        projects = None
 
     context = {
         'project': projects
