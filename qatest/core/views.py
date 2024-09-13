@@ -160,6 +160,7 @@ def deleteprojectpanel(request):
 
 def addproject(request):
     project = ProjectForm()
+    document = DocumentForm()
 
     if request.method == "POST":
         project = ProjectForm(request.POST)
@@ -176,8 +177,13 @@ def addproject(request):
 def project(request, project_id):
     try: 
         projects = Project.objects.get(id=project_id)
+        document = DocumentForm()
         caso = Caso.objects.filter(project = project_id)
         casocount = Caso.objects.filter(project = project_id).count()
+
+        if request.method == 'POST':
+            document = DocumentForm(request.POST)
+            
         context = {
             'project': projects,
             'casos': caso,

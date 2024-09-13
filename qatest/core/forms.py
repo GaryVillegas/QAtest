@@ -82,3 +82,11 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'comentario': forms.Textarea(attrs={'class': 'form-control', 'type': 'text'})
         }
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        mdoel = Document
+        fields = ['documento']
+        widgets = {
+            'documento': forms.ClearableFileInput(attrs={'class': 'form-control', 'type': 'file'})
+        }

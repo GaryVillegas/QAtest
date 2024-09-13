@@ -131,7 +131,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Document storage settings
 DOCUMENT_TYPES = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx']
-MAX_UPLOAD_SIZE = 5242880  # 5MB
+MAX_UPLOAD_SIZE = 104857600  # 100MB
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

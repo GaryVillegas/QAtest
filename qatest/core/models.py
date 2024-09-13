@@ -74,3 +74,13 @@ class Image(models.Model):
 
     def __str__(self):
         return self.image.name
+    
+class Document(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    documento = models.FileField(upload_to='media/documents/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.document.name
