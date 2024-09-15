@@ -69,7 +69,7 @@ class Image(models.Model):
     id = models.BigAutoField(primary_key=True)
     caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    image = models.ImageField(upload_to='media/images/')
+    image = models.ImageField(upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -79,8 +79,8 @@ class Document(models.Model):
     id = models.BigAutoField(primary_key=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    documento = models.FileField(upload_to='media/documents/')
+    documento = models.FileField(upload_to='documents/')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.document.name
+        return self.documento.name

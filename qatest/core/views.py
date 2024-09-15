@@ -4,11 +4,8 @@ from .models import *
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
-import pandas as pd
-from plotly.offline import plot
-import plotly.express as px
-from django.forms import inlineformset_factory
-
+from .utils.authentication import authenticate_and_redirect
+from .utils.plotgenerator import generate_plot_analista, generate_plot_admin
 # Create your views here.
 def index(request):
     form = Login()
@@ -19,25 +16,7 @@ def index(request):
             password = request.POST.get('password')
             form.fields['username'].inital = ''
             form.fields['password'].inital = ''
-
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                
-                if user.username == 'administrador':
-                    return redirect('adminwindow')
-                
-                if request.user.groups.filter(name='analista').exists():
-                    return redirect('analista')
-                
-                if request.user.groups.filter(name='dev').exists():
-                    return redirect('dev')
-                else:
-                    messages.error(request, 'Usuario no esta autorizado para acceder')
-                    return redirect('index')
-            else:
-                messages.error(request, 'Credendiales inválidas. Intentalo de nuevo.')
-                return redirect('index')
+            return authenticate_and_redirect(request, username, password)
             
     context = {
         'loginform': form
@@ -48,24 +27,6 @@ def index(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
-
-def generate_plot_admin(qs):
-    casos_data = [{
-        'estado': x.estado_display,
-        'title': x.project.name
-    } for x in qs]
-    df = pd.DataFrame(casos_data)
-    colors = {
-        'Sin Ejecutar': 'grey',
-        'Aprobado': 'green',
-        'Bloqueado': 'yellow',
-        'Retesteado': 'orange',
-        'Fallido': 'red', 
-    }
-    fig = px.pie(df, names='estado', title='Estado de los Casos', color='estado', color_discrete_map=colors)
-    fig.update_traces(textposition='inside', textinfo='percent+label')
-    fig.update_layout(showlegend=False)
-    return plot(fig, output_type='div')
 
 def adminwindow(request):
     casos = Caso.objects.all()
@@ -175,22 +136,21 @@ def addproject(request):
     return render(request, 'core/admin/addproject.html', context)
 
 def project(request, project_id):
+
     try: 
         projects = Project.objects.get(id=project_id)
-        document = DocumentForm()
-        caso = Caso.objects.filter(project = project_id)
-        casocount = Caso.objects.filter(project = project_id).count()
+        caso = Caso.objects.filter(project=project_id)
+        casocount = Caso.objects.filter(project=project_id).count()
 
-        if request.method == 'POST':
-            document = DocumentForm(request.POST)
-            
         context = {
             'project': projects,
             'casos': caso,
-            'countcasos': casocount
+            'countcasos': casocount,
         }
     except Project.DoesNotExist:
-        messages.error('error')
+        messages.error(request, 'Project not found')
+        return redirect('projects')
+    
     return render(request, 'core/admin/projects/project.html', context)
 
 def deleteproject(request, pk):
@@ -203,7 +163,7 @@ def deleteproject(request, pk):
         return redirect('deleteprojectpanel')
 
 def analista(request):
-    casos = Caso.objects.all()
+    casos = Caso.objects.filter(user=request.user)
     gant_plot = generate_plot_analista(casos)
 
     context = {
@@ -254,26 +214,6 @@ def analista_project(request, project_id):
     }
     
     return render(request, 'core/analista/analista_project.html', context)
-
-def generate_plot_analista(casos):
-    casos_data = [{
-        'estado': caso.estado_display,
-        'titulo': caso.project.name
-    } for caso in casos]
-    df = pd.DataFrame(casos_data)
-    if df.empty:
-        return '<div>No hay datos disponibles para generar el gráfico.</div>'
-    colors = {
-        'Sin Ejecutar': 'grey',
-        'Aprobado': 'green',
-        'Bloqueado': 'yellow',
-        'Retesteado': 'orange',
-        'Fallido': 'red',
-    }
-    fig = px.pie(df, names='estado', title='Estado de los Casos', color='estado', color_discrete_map=colors)
-    fig.update_traces(textposition='inside', textinfo='percent+label')
-    fig.update_layout(showlegend=False)
-    return plot(fig, output_type="div")
 
 def caso(request, caso_id):
     caso = get_object_or_404(Caso, id=caso_id)

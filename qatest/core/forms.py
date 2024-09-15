@@ -85,7 +85,7 @@ class CommentForm(forms.ModelForm):
 
 class DocumentForm(forms.ModelForm):
     class Meta:
-        mdoel = Document
+        model = Document
         fields = ['documento']
         widgets = {
             'documento': forms.ClearableFileInput(attrs={'class': 'form-control', 'type': 'file'})
