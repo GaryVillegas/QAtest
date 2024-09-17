@@ -12,3 +12,9 @@
 .scroll {
   overflow: scroll;
 }
+
+.fixed-elemnt {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
