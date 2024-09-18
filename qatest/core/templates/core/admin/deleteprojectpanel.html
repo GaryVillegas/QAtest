@@ -138,39 +138,43 @@
                       </button>
                       <!-- The Modal -->
                       <div class="modal" id="myModal">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                              <h4 class="modal-title">¿Estás seguro?</h4>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                              ></button>
+                            <div class="modal-body">
+                              <div class="container text-center">
+                                <ion-icon
+                                  name="alert-circle-outline"
+                                  class="text-warning"
+                                  style="font-size: 3rem"
+                                ></ion-icon>
+                                <p class="mt-3">
+                                  ¿Estás seguro de que deseas eliminar este
+                                  proyecto?
+                                </p>
+                                <p class="mt-3 text-secondary">
+                                  todo sobre el proyecto se eliminara.
+                                </p>
+                              </div>
                             </div>
-
-                            <!-- Modal footer -->
                             <div class="modal-footer">
-                              <button
-                                type="button"
-                                class="btn btn-primary"
-                                data-bs-dismiss="modal"
-                              >
-                                <a
-                                  href="{% url 'deleteproject' projects.id %}"
-                                  class="text-decoration-none text-light"
-                                >
-                                  Si
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn btn-danger"
-                                data-bs-dismiss="modal"
-                              >
-                                No
-                              </button>
+                              <div class="row w-100">
+                                <div class="col">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary w-100"
+                                    data-bs-dismiss="modal"
+                                  >
+                                    Cancelar
+                                  </button>
+                                </div>
+                                <div class="col">
+                                  <a
+                                    href="{% url 'deleteproject' projects.id %}"
+                                    class="btn btn-danger w-100 text-decoration-none text-light"
+                                    >Eliminar</a
+                                  >
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
