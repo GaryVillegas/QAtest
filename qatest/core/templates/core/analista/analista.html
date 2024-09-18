@@ -55,7 +55,7 @@
                   data-bs-placement="right"
                   data-bs-original-title="Projects"
                 >
-                  <ion-icon name="apps-outline"></ion-icon>
+                  <ion-icon name="albums-outline"></ion-icon>
                 </a>
               </li>
             </ul>
@@ -83,8 +83,26 @@
 
         <div class="col-sm p-3 min-vh-100">
           <!-- content -->
-          {% if user.is_authenticated%}
-          <h1>Bienvenid@ {{user.username}}</h1>
+          {% if user.is_authenticated %}
+          <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div
+              id="welcome-toast"
+              class="toast"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div class="toast-header">
+                <strong class="me-auto"
+                  ><ion-icon name="code-slash-outline"></ion-icon> QA
+                  Test</strong
+                >
+              </div>
+              <div class="toast-body">
+                <h5>Bienvenid@ {{user.username}}</h5>
+              </div>
+            </div>
+          </div>
           {% endif %} {% autoescape off %}
           <div class="col-md-6 my-2">{{ graf|safe }}</div>
           {% endautoescape %}
@@ -134,6 +152,23 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Ensure the static tag is loaded at the top of the file -->
+    {% load static %}
+
+    <!-- Add defer attribute to ensure the script loads after the DOM is ready -->
+    <script>
+      if (!localStorage.getItem("welcomeToastShown")) {
+        document.addEventListener("DOMContentLoaded", function () {
+          var welcomeToast = new bootstrap.Toast(
+            document.getElementById("welcome-toast")
+          );
+          welcomeToast.show();
+          setTimeout(function () {
+            welcomeToast.hide();
+          }, 2000);
+          localStorage.setItem("welcomeToastShown", "true");
+        });
+      }
+    </script>
   </body>
 </html>

@@ -55,7 +55,7 @@
                   data-bs-placement="right"
                   data-bs-original-title="Projects"
                 >
-                  <ion-icon name="apps-outline"></ion-icon>
+                  <ion-icon name="albums-outline"></ion-icon>
                 </a>
               </li>
               <li>
@@ -97,10 +97,10 @@
           <!-- content -->
           <div class="row">
             <div class="col-sm-auto">
-              <button class="btn btn-light text-decoration-none">
+              <button class="btn btn-dark text-decoration-none">
                 <a
                   href="{% url 'users' %}"
-                  class="text-decoration-none text-dark"
+                  class="text-decoration-none text-light"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
                   <span>Atras</span>
@@ -123,6 +123,7 @@
                     {% csrf_token %} {{usercreate.as_p}}
                     <div class="d-flex justify-content-center">
                       <button type="submit" class="btn btn-dark my-2">
+                        <ion-icon name="person-add-outline"></ion-icon>
                         Añadir Usuario
                       </button>
                     </div>

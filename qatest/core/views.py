@@ -183,7 +183,8 @@ def analista(request):
 
     context = {
         'casos': casos,
-        'graf': gant_plot
+        'graf': gant_plot,
+        'projects': projects,
     }
 
     return render(request, 'core/analista/analista.html', context)
