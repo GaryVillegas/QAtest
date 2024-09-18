@@ -108,7 +108,7 @@
               </button>
             </div>
 
-            {% block content%}
+            {% block content %}
             <div class="container my-5">
               <div class="row">
                 <div class="col-sm-6">
@@ -119,10 +119,19 @@
                 <div class="col-sm-2"></div>
                 <div class="col-sm-4">
                   <strong>
-                    <span>Usuario responsable:</span>
+                    <label for="responsible_user">Usuario Responsable: </label>
                   </strong>
                   <br />
-                  {{project.responsible_user.username}}
+                  <form method="POST" action="{% url 'project' project.id %}">
+                    {% csrf_token %}
+                    <select name="responsible_user" id="responsible_user" class="form-select" onchange="this.form.submit">
+                      {% for user in users %}
+                      <option value="{{user.id}}" {% if user == project.responsible_user %} selected {% endif %}>
+                        {{user.username}}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </form>
                 </div>
               </div>
             </div>

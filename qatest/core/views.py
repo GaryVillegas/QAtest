@@ -121,7 +121,6 @@ def deleteprojectpanel(request):
 
 def addproject(request):
     project = ProjectForm()
-    document = DocumentForm()
 
     if request.method == "POST":
         project = ProjectForm(request.POST)
@@ -141,11 +140,20 @@ def project(request, project_id):
         projects = Project.objects.get(id=project_id)
         caso = Caso.objects.filter(project=project_id)
         casocount = Caso.objects.filter(project=project_id).count()
+        users = User.objects.filter(groups__name='analista')
+
+        if request.method == "POST":
+            if 'responsible_user' in request.POST:
+                user_id = request.POST['responsible_user']
+                responsible_user = get_object_or_404(User, id=user_id)
+                projects.responsible_user = responsible_user
+                projects.save()
 
         context = {
             'project': projects,
             'casos': caso,
             'countcasos': casocount,
+            'users': users,
         }
     except Project.DoesNotExist:
         messages.error(request, 'Project not found')
@@ -163,8 +171,14 @@ def deleteproject(request, pk):
         return redirect('deleteprojectpanel')
 
 def analista(request):
-    casos = Caso.objects.filter(user=request.user)
-    gant_plot = generate_plot_analista(casos)
+    projects = Project.objects.filter(responsible_user=request.user)
+    casos = Caso.objects.filter(project__in=projects)
+    
+    try:
+        gant_plot = generate_plot_analista(casos)
+    except Exception as e:
+        gant_plot = None
+        messages.error(request, f"Error generating plot: {str(e)}")
 
     context = {
         'casos': casos,
@@ -175,8 +189,7 @@ def analista(request):
 
 def analista_projects(request):
     try:
-        actual_user = request.user
-        projects = Project.objects.filter(responsible_user = actual_user)
+        projects = Project.objects.filter(responsible_user = request.user)
     except Project.DoesNotExist:
         messages.error("Error al buscar la tabla")
         projects = None
@@ -188,8 +201,7 @@ def analista_projects(request):
     return render(request, 'core/analista/analista_projects.html', context)
 
 def analista_project(request, project_id):
-    actual_user = request.user
-    project = get_object_or_404(Project, id=project_id, responsible_user=actual_user)
+    project = get_object_or_404(Project, id=project_id, responsible_user=request.user)
     casos = Caso.objects.filter(project=project)
 
     if request.method == 'POST':
@@ -202,7 +214,7 @@ def analista_project(request, project_id):
             return redirect('analista_project', project_id=project_id)
     else:
         casoform = CasoForm(initial={'user': request.user})
-        casoform.fields['project'].queryset = Project.objects.filter(responsible_user=actual_user)
+        casoform.fields['project'].queryset = Project.objects.filter(responsible_user=request.user)
 
     gant_plot = generate_plot_analista(casos)    
 
@@ -218,21 +230,30 @@ def analista_project(request, project_id):
 def caso(request, caso_id):
     caso = get_object_or_404(Caso, id=caso_id)
     comments = Comment.objects.filter(caso=caso)
+    
     if comments == None:
         comments = None
     commentform = CommentForm()
     if request.method == 'POST':
-        commentform = CommentForm(request.POST)
-        if commentform.is_valid():
-            comment = commentform.save(commit=False)
-            comment.user = request.user
-            comment.caso = caso
-            comment.save()
+        if 'comment' in request.POST:
+            commentform = CommentForm(request.POST)
+            if commentform.is_valid():
+                comment = commentform.save(commit=False)
+                comment.user = request.user
+                comment.caso = caso
+                comment.save()
+                return redirect('caso', caso_id=caso_id)
+        elif 'estado' in request.POST:
+            new_estado = request.POST['estado']
+            caso.estado = new_estado
+            caso.save()
             return redirect('caso', caso_id=caso_id)
+    
     context = {
         'caso': caso,
         'comments': comments,
-        'commentform': commentform
+        'commentform': commentform,
+        'estados': Caso.estado_display
     }
     return render(request, 'core/caso.html', context)
 

@@ -18,6 +18,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-auto bg-light sticky-top">
+          {% if request.user.groups.all.0.name == 'analista' %}
           <div
             class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top"
             style="height: 100vh"
@@ -61,25 +62,62 @@
               </li>
             </ul>
           </div>
-          <div class="dropdown">
+          {% else %}
+          <div
+            class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top"
+          >
             <a
               href=""
-              class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
-              id="dropdownUser3"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              class="d-block p-3 link-dark text-decoration-none"
+              title=""
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              data-bs-original-title="Icon-only"
             >
-              <ion-icon name="person-circle-outline"></ion-icon>
+              <ion-icon name="code-slash-outline"></ion-icon>
             </a>
             <ul
-              class="dropdown-menu text-small shadow"
-              aria-labelledby="dropdownUser3"
+              class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center"
             >
+              <li class="nav-item">
+                <a
+                  href="{% url 'adminwindow' %}"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Home"
+                >
+                  <ion-icon name="home-outline"></ion-icon>
+                </a>
+              </li>
               <li>
-                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <a
+                  href="{% url 'projects' %}"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Projects"
+                >
+                  <ion-icon name="apps-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="{% url 'users' %}"
+                  class="nav-link py-3 px-2"
+                  title=""
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  data-bs-original-title="Users"
+                >
+                  <ion-icon name="people-outline"></ion-icon>
+                </a>
               </li>
             </ul>
           </div>
+          {% endif %}
         </div>
 
         <div class="col-sm p-3 min-vh-100">
@@ -122,8 +160,21 @@
                     <p class="card-text">{{caso.tipo_display}}</p>
                   </div>
                   <div class="d-flex flex-column">
-                    <h6 class="card-title"><strong>Estado</strong></h6>
-                    <p class="card-text">{{caso.estado_display}}</p>
+                    <h6 class="card-title">
+                      <strong>
+                        <label for="estado">Estado</label>
+                      </strong>
+                    </h6>
+                    <form method="POST" action="{% url 'caso' caso.id %}">
+                      {% csrf_token %}
+                      <select name="estado" id="estado" class="form-select" onchange="this.form.submit()">
+                        {% for key, value in caso.estado_caso %}
+                        <option value="{{ key }}" {% if key == caso.estado %} selected {% endif %}>
+                          {{ value }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </form>
                   </div>
                   <div class="d-flex flex-column">
                     <h6 class="card-title"><strong>Prioridad</strong></h6>
