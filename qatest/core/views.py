@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
-from django.contrib.auth import authenticate, logout
-from django.contrib.auth.models import auth, User
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .utils.authentication import authenticate_and_redirect
 from .utils.plotgenerator import generate_plot_analista, generate_plot_admin
+
 # Create your views here.
 def index(request):
     form = Login()
@@ -100,12 +101,22 @@ def deleteuser(request, user_id):
 def projects(request):
 
     projects = Project.objects.all()
-    msg = ''
-    if not projects:
+    try:
+        project = ProjectForm()
+
+        if request.method == "POST":
+            project = ProjectForm(request.POST)
+            if project.is_valid():
+                project.save()
+                return redirect('projects')
+        msg = ''
+    except Project.DoesNotExist:
         msg = 'There are 0 projects at this moment.'
+
     context = {
         'project_list': projects,
-        'message': msg
+        'message': msg,
+        'projectform': project,
     }
     return render(request, 'core/admin/projects.html', context)
 
@@ -120,19 +131,9 @@ def deleteprojectpanel(request):
 
 
 def addproject(request):
-    project = ProjectForm()
 
-    if request.method == "POST":
-        project = ProjectForm(request.POST)
-        if project.is_valid():
-            project.save()
-            return redirect('projects')
 
-    context = {
-        'projectform': project
-    }
-
-    return render(request, 'core/admin/addproject.html', context)
+    return render(request, 'core/admin/addproject.html')
 
 def project(request, project_id):
 

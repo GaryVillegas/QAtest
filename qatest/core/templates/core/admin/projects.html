@@ -98,14 +98,14 @@
           <!-- content -->
           <div class="row">
             <div class="col-sm-auto my-1">
-              <button class="btn btn-dark text-decoration-none">
-                <a
-                  href="{% url 'addproject' %}"
-                  class="text-decoration-none text-light"
-                >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  <span>Añadir Proyecto</span>
-                </a>
+              <button
+                class="btn btn-dark text-decoration-none"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                <ion-icon name="add-circle-outline"></ion-icon>
+                <span>Añadir Proyecto</span>
               </button>
             </div>
             <div class="col-sm-auto my-1">
@@ -122,34 +122,78 @@
           </div>
 
           <div class="container my-5">
-            <h2>Proyectos</h2>
-            <div class="table-reponsive">
-              <table class="table table-hover table-sm">
-                <thead>
-                  <tr>
-                    <th>Nombre de Proyectos</th>
-                    <th>Usuario Responsable</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for projects in project_list %}
-                  <tr>
-                    <td>
+            <div class="container">
+              <h2><strong> projects </strong></h2>
+              {% for projects in project_list %}
+              <div
+                class="accordion my-2"
+                id="accordionProject{{ projects.id }}"
+              >
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseProject{{ projects.id }}"
+                      aria-expanded="true"
+                      aria-controls="collapseProject{{ projects.id }}"
+                    >
+                      {{ projects.name }}
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseProject{{ projects.id }}"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionProject{{ projects.id }}"
+                  >
+                    <div class="accordion-body">
+                      <strong>Usuario Responsable: </strong>
+                      {{projects.responsible_user}}
+                      <br />
+                      <strong>Descripción:</strong> {{ projects.description }}
+                      <br />
+                      <strong>Fecha de inicio:</strong> {{ projects.create_at }}
+                      <br />
                       <a
                         href="{% url 'project' projects.id %}"
-                        class="text-decoration-none text-dark"
-                        >{{projects.name}}</a
+                        class="btn btn-dark my-2"
                       >
-                    </td>
-                    <td>{{projects.responsible_user}}</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                        Ir al proyecto
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Modal -->
+            <div class="modal" id="myModal">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form method="POST">
+                      {% csrf_token %} {{ projectform.as_p }}
+
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">
+                          <ion-icon name="cloud-upload-outline"></ion-icon>
+                          Guardar
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          data-bs-dismiss="modal"
+                        >
+                          <ion-icon name="close-outline"></ion-icon>
+                          Cancelar
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
