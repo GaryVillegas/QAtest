@@ -124,7 +124,7 @@
                   <br />
                   <form method="POST" action="{% url 'project' project.id %}">
                     {% csrf_token %}
-                    <select name="responsible_user" id="responsible_user" class="form-select" onchange="this.form.submit">
+                    <select name="responsible_user" id="responsible_user" class="form-select" onchange="this.form.submit()">
                       {% for user in users %}
                       <option value="{{user.id}}" {% if user == project.responsible_user %} selected {% endif %}>
                         {{user.username}}

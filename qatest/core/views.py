@@ -6,7 +6,7 @@ from django.db.models import Prefetch
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .utils.authentication import authenticate_and_redirect
-from .utils.plotgenerator import generate_plot_analista, generate_plot_admin
+from .utils.plotgenerator import *
 
 # Create your views here.
 def index(request):
@@ -36,7 +36,8 @@ def adminwindow(request):
     
     context = {
         'projects': projects,
-        'graf': generate_plot_admin(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>'
+        'graf': generate_plot_admin(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>',
+        'graf_test': generate_plot_test(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>',
     }
     return render(request, 'core/admin/admin.html', context)
 
@@ -113,6 +114,7 @@ def projects(request):
         msg = ''
     except Project.DoesNotExist:
         msg = 'There are 0 projects at this moment.'
+        projects = None
 
     context = {
         'project_list': projects,
@@ -130,12 +132,6 @@ def deleteprojectpanel(request):
 
     return render(request, 'core/admin/deleteprojectpanel.html', context)
 
-
-def addproject(request):
-
-
-    return render(request, 'core/admin/addproject.html')
-
 def project(request, project_id):
 
     try: 
@@ -150,6 +146,7 @@ def project(request, project_id):
                 responsible_user = get_object_or_404(User, id=user_id)
                 projects.responsible_user = responsible_user
                 projects.save()
+                return redirect('project', project_id = project_id)
 
         context = {
             'project': projects,
@@ -167,7 +164,7 @@ def deleteproject(request, pk):
     try:
         project = get_object_or_404(Project, id = pk)
         project.delete()
-        return redirect('projects')
+        return redirect('deleteprojectpanel')
     except Project.DoesNotExist:
         messages.error("Error al buscar la tabla")
         return redirect('deleteprojectpanel')

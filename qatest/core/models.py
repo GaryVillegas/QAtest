@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Project(models.Model):
@@ -8,10 +9,14 @@ class Project(models.Model):
     description = models.TextField(null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     responsible_user = models.ForeignKey(User, related_name='assigned_project', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'groups__name': 'analista'})
-    users = models.ManyToManyField(User, related_name='projects', blank=True, limit_choices_to=Q(groups__name__in=['analista', 'dev']))
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if self.responsible_user and self.responsible_user.assigned_project.count() >= 5:
+            raise ValidationError("Un usuario no puede ser responsable de más de 5 proyectos.")
+        super().save(*args, **kwargs)
     
 class Caso(models.Model):
     tipo_caso = [

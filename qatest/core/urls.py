@@ -10,7 +10,6 @@ urlpatterns=[
     path('deleteuserpanel', deleteuserpanel, name='deleteuserpanel'),
     path('deleteuser/<int:user_id>/', deleteuser, name='deleteuser'),
     path('projects', projects, name='projects'),
-    path('addproject', addproject, name='addproject'),
     path('project/<int:project_id>', project, name='project'),
     path('deleteprojectpanel', deleteprojectpanel, name='deleteprojectpanel'),
     path('deleteproject/<int:pk>/', deleteproject, name='deleteproject'),

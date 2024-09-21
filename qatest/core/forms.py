@@ -28,12 +28,11 @@ class UserCreator(UserCreationForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name', 'description', 'responsible_user', 'users']
+        fields = ['name', 'description', 'responsible_user']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'responsible_user': forms.Select(attrs={'class': 'form-control'}),
-            'users': forms.SelectMultiple(attrs={'class': 'form-control'})
         }
 
 class CasoForm(forms.ModelForm):

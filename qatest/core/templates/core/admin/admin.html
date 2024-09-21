@@ -13,6 +13,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <!-- Test -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -118,9 +120,11 @@
           {% endif %} {% block content %}
           <div class="row">
             {% autoescape off %}
-            <div class="col-md-6">{{ graf|safe }}</div>
+            <div class="col-md-4">{{graf|safe}}</div>
+            <div class="col-md-4">{{graf_test|safe}}</div>
             {% endautoescape %}
           </div>
+
           <div class="container">
             <table class="table table-hover">
               <thead>
