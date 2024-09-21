@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
 from django.contrib.auth import logout
+from django.db.models import Prefetch
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .utils.authentication import authenticate_and_redirect
@@ -31,7 +32,7 @@ def logout_view(request):
 
 def adminwindow(request):
     casos = Caso.objects.all()
-    projects = Project.objects.all()
+    projects = Project.objects.prefetch_related(Prefetch('responsible_user', queryset=User.objects.all()))
     
     context = {
         'projects': projects,

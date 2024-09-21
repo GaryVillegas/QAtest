@@ -8,6 +8,7 @@ class Project(models.Model):
     description = models.TextField(null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     responsible_user = models.ForeignKey(User, related_name='assigned_project', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'groups__name': 'analista'})
+    users = models.ManyToManyField(User, related_name='projects', blank=True, limit_choices_to=Q(groups__name__in=['analista', 'dev']))
 
     def __str__(self):
         return self.name
