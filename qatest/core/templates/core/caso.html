@@ -178,7 +178,16 @@
                   </div>
                   <div class="d-flex flex-column">
                     <h6 class="card-title"><strong>Prioridad</strong></h6>
-                    <p class="card-text">{{caso.prioridad_display}}</p>
+                    <form method="POST" action="{% url 'caso' caso.id %}">
+                      {% csrf_token %}
+                      <select name="prioridad" id="prioridad" class="form-select" onchange="this.form.submit()">
+                        {% for key, value in caso.prioridad_caso %}
+                        <option value="{{ key }}" {% if key == caso.prioridad %} selected {% endif %}>
+                          {{ value }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </form>
                   </div>
                   <div class="d-flex flex-column">
                     <h6 class="card-title"><strong>Estimado</strong></h6>

@@ -248,12 +248,17 @@ def caso(request, caso_id):
             caso.estado = new_estado
             caso.save()
             return redirect('caso', caso_id=caso_id)
+        elif 'prioridad' in request.POST:
+            new_prioridad = request.POST['prioridad']
+            caso.prioridad = new_prioridad
+            caso.save()
     
     context = {
         'caso': caso,
         'comments': comments,
         'commentform': commentform,
-        'estados': Caso.estado_display
+        'estados': Caso.estado_display,
+        'prioridad': Caso.prioridad_display,
     }
     return render(request, 'core/caso.html', context)
 
