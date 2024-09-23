@@ -153,12 +153,12 @@
               <h2>Tablero</h2>
               <div class="row">
                 <div class="col">
-                  <h4>Sin Empezar</h4>
+                  <h4 class="badge bg-dark rounded-pill">Sin Empezar</h4>
                   {% for caso in casos %}
                     {% if caso.estado == '1' %}
                       <div class="card my-1">
                         <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                             <strong>{{ caso.titulo }}</strong>
                           </a>
                           <p class="card-text">Cliente: {{ caso.project.name }}</p>
@@ -170,12 +170,12 @@
                   {% endfor %}
                 </div>
                 <div class="col">
-                  <h4>Bloqueado</h4>
+                  <h4 class="badge bg-dark rounded-pill">Bloqueado</h4>
                   {% for caso in casos %}
                     {% if caso.estado == '3' %}
                       <div class="card my-1">
                         <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                             <strong>{{ caso.titulo }}</strong>
                           </a>
                           <p class="card-text">Cliente: {{ caso.project.name }}</p>
@@ -187,12 +187,12 @@
                   {% endfor %}
                 </div>
                 <div class="col">
-                  <h4>Retesteado</h4>
+                  <h4 class="badge bg-dark rounded-pill">Retesteado</h4>
                   {% for caso in casos %}
                     {% if caso.estado == '4' %}
                       <div class="card my-1">
                         <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                             <strong>{{ caso.titulo }}</strong>
                           </a>
                           <p class="card-text">Cliente: {{ caso.project.name }}</p>
@@ -204,12 +204,12 @@
                   {% endfor %}
                 </div>
                 <div class="col">
-                  <h4>Fallido</h4>
+                  <h4 class="badge bg-dark rounded-pill">Fallido</h4>
                   {% for caso in casos %}
                     {% if caso.estado == '5' %}
                       <div class="card my-1">
                         <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                             <strong>{{ caso.titulo }}</strong>
                           </a>
                           <p class="card-text">Cliente: {{ caso.project.name }}</p>
@@ -221,12 +221,12 @@
                   {% endfor %}
                 </div>
                 <div class="col">
-                  <h4>Aprobado</h4>
+                  <h4 class="badge bg-dark rounded-pill">Aprobado</h4>
                   {% for caso in casos %}
                     {% if caso.estado == '2' %}
                       <div class="card my-1">
                         <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                             <strong>{{ caso.titulo }}</strong>
                           </a>
                           <p class="card-text">Creador Caso: {{ caso.project.name }}</p>
