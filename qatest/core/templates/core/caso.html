@@ -127,7 +127,7 @@
               <button class="btn btn-dark text-decoration-none">
                 {% if request.user.groups.all.0.name == 'dev' %}
                 <a
-                  href="{% url 'dev_project' caso.project.id %}"
+                  href="#"
                   class="text-decoration-none text-light"
                   ><ion-icon name="arrow-back-outline"></ion-icon>
                   <span>Atras</span>
@@ -195,18 +195,8 @@
                   </div>
                 </div>
               </div>
-              <div class="row flex-column">
-                <div class="col-12 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body d-flex flex-column">
-                      <h6 class="card-title"><strong>Precondicion</strong></h6>
-                      <p class="card-text flex-grow-1 overflow-auto">
-                        {{caso.precondicion}}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 mb-3">
+              <div class="row">
+                <div class="col-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                       <h6 class="card-title"><strong>Pasos</strong></h6>
@@ -216,7 +206,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 mb-3">
+                <div class="col-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body d-flex flex-column">
                       <h6 class="card-title">
@@ -225,6 +215,26 @@
                       <p class="card-text flex-grow-1 overflow-auto">
                         {{caso.resultados_esperados}}
                       </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                      <h6 class="card-title"><strong>Precondicion</strong></h6>
+                      <p class="card-text flex-grow-1 overflow-auto">
+                        {{caso.precondicion}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                      <h6 class="card-title"><strong>Responsable</strong></h6>
+                      {{caso.user.username}}
                     </div>
                   </div>
                 </div>
