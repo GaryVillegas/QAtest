@@ -137,7 +137,6 @@ def project(request, project_id):
     try: 
         projects = Project.objects.get(id=project_id)
         caso = Caso.objects.filter(project=project_id)
-        casocount = Caso.objects.filter(project=project_id).count()
         users = User.objects.filter(groups__name='analista')
 
         if request.method == "POST":
@@ -151,7 +150,6 @@ def project(request, project_id):
         context = {
             'project': projects,
             'casos': caso,
-            'countcasos': casocount,
             'users': users,
         }
     except Project.DoesNotExist:

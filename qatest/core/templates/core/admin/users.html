@@ -144,10 +144,17 @@
                     data-bs-parent="#accordionUser{{ user.id }}"
                   >
                     <div class="accodrion-body">
-                      <div class="container my-2">
-                        <strong>Email: </strong>{{ user.email }}
-                        <br />
-                        <strong>Grupo: </strong>{{ user.groups.first.name }}
+                      <div class="row">
+                        <div class="col-10 my-2">
+                          <strong>Email: </strong>{{ user.email }}
+                          <br />
+                          <strong>Grupo: </strong>{{ user.groups.first.name }}
+                        </div>
+                        <div class="col-2 my-2">
+                          <button class="btn btn-dark">
+                            <ion-icon name="pencil-outline"></ion-icon>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

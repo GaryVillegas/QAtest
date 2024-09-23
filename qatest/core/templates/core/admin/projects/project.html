@@ -108,8 +108,18 @@
               </button>
             </div>
 
+            <div class="container my-1">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-dark" id="boardButton">Tabla</button>
+                <button type="button" class="btn btn-outline-dark" id="listButton">Lista</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-dark" id="exportButton"><ion-icon name="cloud-download-outline"></ion-icon> Exportar</button>
+              </div>
+            </div>
+
             {% block content %}
-            <div class="container my-5">
+            <div class="container my-2">
               <div class="row">
                 <div class="col-sm-6">
                   <h2 class="my-1">{{project.name}}</h2>
@@ -132,41 +142,109 @@
                       {% endfor %}
                     </select>
                   </form>
+                  
                 </div>
               </div>
-            </div>
-
-            <div class="container my-2 p-2 scroll">
-              <h2>Casos</h2>
-              <p>Total casos: {{countcasos}}</p>
-              {% for caso in casos %}
-              <div class="card my-1 p-1" style="width: 18rem">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <strong
-                      ><a
-                        href="{% url 'caso' caso.id %}"
-                        class="text-decoration-none text-dark"
-                        >{{caso.titulo}}</a
-                      ></strong
-                    >
-                  </h4>
-                  <h6 class="card-subtitle mb-2 text-muted">
-                    Tipo: {{caso.tipo_display}}
-                  </h6>
-                  <h6 class="card-subtitle mb-2 text-muted">
-                    Estado: {{caso.estado_display}}
-                  </h6>
-                  <h6 class="card-subtitle mb-2 text-muted">
-                    Prioridad: {{caso.prioridad_display}}
-                  </h6>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-            {% endblock %}
+            </div>            
           </div>
-        </div>
+
+          <div id="container my-1">
+            <div id="board" class="tab-content">
+              <h2>Tablero</h2>
+              <div class="row">
+                <div class="col">
+                  <h4>Sin Empezar</h4>
+                  {% for caso in casos %}
+                    {% if caso.estado == '1' %}
+                      <div class="card my-1">
+                        <div class="card-body">
+                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                            <strong>{{ caso.titulo }}</strong>
+                          </a>
+                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <p>No hay casos sin empezar.</p>
+                  {% endfor %}
+                </div>
+                <div class="col">
+                  <h4>Bloqueado</h4>
+                  {% for caso in casos %}
+                    {% if caso.estado == '3' %}
+                      <div class="card my-1">
+                        <div class="card-body">
+                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                            <strong>{{ caso.titulo }}</strong>
+                          </a>
+                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <p>No hay casos sin empezar.</p>
+                  {% endfor %}
+                </div>
+                <div class="col">
+                  <h4>Retesteado</h4>
+                  {% for caso in casos %}
+                    {% if caso.estado == '4' %}
+                      <div class="card my-1">
+                        <div class="card-body">
+                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                            <strong>{{ caso.titulo }}</strong>
+                          </a>
+                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <p>No hay casos sin empezar.</p>
+                  {% endfor %}
+                </div>
+                <div class="col">
+                  <h4>Fallido</h4>
+                  {% for caso in casos %}
+                    {% if caso.estado == '5' %}
+                      <div class="card my-1">
+                        <div class="card-body">
+                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                            <strong>{{ caso.titulo }}</strong>
+                          </a>
+                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <p>No hay casos sin empezar.</p>
+                  {% endfor %}
+                </div>
+                <div class="col">
+                  <h4>Aprobado</h4>
+                  {% for caso in casos %}
+                    {% if caso.estado == '2' %}
+                      <div class="card my-1">
+                        <div class="card-body">
+                          <a href="{% url 'caso' caso.id %}" class="card-title">
+                            <strong>{{ caso.titulo }}</strong>
+                          </a>
+                          <p class="card-text">Creador Caso: {{ caso.project.name }}</p>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <p>No hay casos sin empezar.</p>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div id="list" class="tab-content" style="display: none;">
+              <h2>Lista</h2>
+              <!-- Aquí va el contenido de la lista -->
+            </div>
+          </div>
+          {% endblock %}
       </div>
     </div>
 
@@ -187,6 +265,16 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+      document.getElementById('boardButton').addEventListener('click', function() {
+      document.getElementById('board').style.display = 'block';
+      document.getElementById('list').style.display = 'none';
+      });
+
+      document.getElementById('listButton').addEventListener('click', function() {
+        document.getElementById('board').style.display = 'none';
+        document.getElementById('list').style.display = 'block';
+      });
+    </script>
   </body>
 </html>
