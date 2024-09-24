@@ -100,7 +100,7 @@
               <button class="btn btn-dark text-decoration-none">
                 <a
                   href="{% url 'projects' %}"
-                  class="text-decoration-none text-light"
+                  class="text-decoration-none text-white"
                 >
                   <ion-icon name="arrow-back-outline"></ion-icon>
                   <span>Atras</span>
@@ -153,95 +153,128 @@
               <h2>Tablero</h2>
               <div class="row">
                 <div class="col">
-                  <h4 class="badge bg-dark rounded-pill">Sin Empezar</h4>
-                  {% for caso in casos %}
-                    {% if caso.estado == '1' %}
-                      <div class="card my-1">
-                        <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
-                            <strong>{{ caso.titulo }}</strong>
-                          </a>
-                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                  <div class="card bg-secondary p-1">
+                    <h2 class="badge bg-dark rounded-pill p-2">Sin Empezar</h2>
+                    {% for caso in casos %}
+                      {% if caso.estado == '1' %}
+                        <div class="card bg-white my-1">
+                          <div class="card-body">
+                            <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
+                              <strong>{{ caso.titulo }}</strong>
+                            </a>
+                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
+                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                          </div>
                         </div>
-                      </div>
-                    {% endif %}
-                  {% empty %}
-                    <p>No hay casos sin empezar.</p>
-                  {% endfor %}
+                      {% endif %}
+                    {% empty %}
+                      <p>No hay casos sin empezar.</p>
+                    {% endfor %}
+                  </div>
                 </div>
                 <div class="col">
-                  <h4 class="badge bg-dark rounded-pill">Bloqueado</h4>
-                  {% for caso in casos %}
-                    {% if caso.estado == '3' %}
-                      <div class="card my-1">
-                        <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
-                            <strong>{{ caso.titulo }}</strong>
-                          </a>
-                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                  <div class="card bg-secondary p-1">
+                    <h2 class="badge bg-dark rounded-pill p-2">Bloqueado</h2>
+                    {% for caso in casos %}
+                      {% if caso.estado == '3' %}
+                        <div class="card bg-white my-1">
+                          <div class="card-body">
+                            <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
+                              <strong>{{ caso.titulo }}</strong>
+                            </a>
+                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
+                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                          </div>
                         </div>
-                      </div>
-                    {% endif %}
-                  {% empty %}
-                    <p>No hay casos sin empezar.</p>
-                  {% endfor %}
+                      {% endif %}
+                    {% empty %}
+                      <p>No hay casos sin empezar.</p>
+                    {% endfor %}
+                  </div>
                 </div>
                 <div class="col">
-                  <h4 class="badge bg-dark rounded-pill">Retesteado</h4>
-                  {% for caso in casos %}
-                    {% if caso.estado == '4' %}
-                      <div class="card my-1">
-                        <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
-                            <strong>{{ caso.titulo }}</strong>
-                          </a>
-                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                  <div class="card bg-secondary p-1">
+                    <h2 class="badge bg-dark rounded-pill p-2">Retesteado</h2>
+                    {% for caso in casos %}
+                      {% if caso.estado == '4' %}
+                        <div class="card bg-white my-1">
+                          <div class="card-body">
+                            <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
+                              <strong>{{ caso.titulo }}</strong>
+                            </a>
+                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
+                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                          </div>
                         </div>
-                      </div>
-                    {% endif %}
-                  {% empty %}
-                    <p>No hay casos sin empezar.</p>
-                  {% endfor %}
+                      {% endif %}
+                    {% empty %}
+                      <p>No hay casos sin empezar.</p>
+                    {% endfor %}
+                  </div>
                 </div>
                 <div class="col">
-                  <h4 class="badge bg-dark rounded-pill">Fallido</h4>
-                  {% for caso in casos %}
-                    {% if caso.estado == '5' %}
-                      <div class="card my-1">
-                        <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
-                            <strong>{{ caso.titulo }}</strong>
-                          </a>
-                          <p class="card-text">Cliente: {{ caso.project.name }}</p>
+                  <div class="card bg-secondary p-1">
+                    <h2 class="badge bg-dark rounded-pill p-2">Fallido</h2>
+                    {% for caso in casos %}
+                      {% if caso.estado == '5' %}
+                        <div class="card bg-white my-1">
+                          <div class="card-body">
+                            <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
+                              <strong>{{ caso.titulo }}</strong>
+                            </a>
+                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
+                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                          </div>
                         </div>
-                      </div>
-                    {% endif %}
-                  {% empty %}
-                    <p>No hay casos sin empezar.</p>
-                  {% endfor %}
+                      {% endif %}
+                    {% empty %}
+                      <p>No hay casos sin empezar.</p>
+                    {% endfor %}
+                  </div>
                 </div>
                 <div class="col">
-                  <h4 class="badge bg-dark rounded-pill">Aprobado</h4>
-                  {% for caso in casos %}
-                    {% if caso.estado == '2' %}
-                      <div class="card my-1">
-                        <div class="card-body">
-                          <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
-                            <strong>{{ caso.titulo }}</strong>
-                          </a>
-                          <p class="card-text">Creador Caso: {{ caso.project.name }}</p>
+                  <div class="card bg-secondary p-1">
+                    <h2 class="badge bg-dark rounded-pill p-2">Aprobado</h3>
+                    {% for caso in casos %}
+                      {% if caso.estado == '2' %}
+                        <div class="card bg-white my-1">
+                          <div class="card-body">
+                            <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
+                              <strong>{{ caso.titulo }}</strong>
+                            </a>
+                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
+                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                          </div>
                         </div>
-                      </div>
-                    {% endif %}
-                  {% empty %}
-                    <p>No hay casos sin empezar.</p>
-                  {% endfor %}
+                      {% endif %}
+                    {% empty %}
+                      <p>No hay casos sin empezar.</p>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>
             <div id="list" class="tab-content" style="display: none;">
               <h2>Lista</h2>
               <!-- Aquí va el contenido de la lista -->
+              <table class="table table-hover">
+                <thead>
+                  <th>Titulo</th>
+                  <th>Responsable</th>
+                  <th>Estado</th>
+                  <th>Prioridad</th>
+                </thead>
+                <tbody>
+                  {% for caso in casos %}
+                  <tr>
+                    <td>{{caso.titulo}}</td>
+                    <td>{{caso.user.username}}</td>
+                    <td>{{caso.estado_display}}</td>
+                    <td>{{caso.prioridad}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
           {% endblock %}
