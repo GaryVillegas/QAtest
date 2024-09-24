@@ -39,6 +39,7 @@ class Caso(models.Model):
 
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, limit_choices_to=Q(groups__name__in=['analista', 'dev']), null=True, blank=True)
+    desarrollador = models.ForeignKey(User, on_delete=models.SET_NULL, limit_choices_to=Q(groups__name__in='dev'), null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=20, null=True, blank=True)
     tipo = models.CharField(max_length=1, choices=tipo_caso, default=1)
