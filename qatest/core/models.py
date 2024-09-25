@@ -39,7 +39,7 @@ class Caso(models.Model):
 
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, limit_choices_to=Q(groups__name__in=['analista', 'dev']), null=True, blank=True)
-    desarrollador = models.ForeignKey(User, on_delete=models.SET_NULL, limit_choices_to=Q(groups__name__in='dev'), null=True, blank=True)
+    desarrollador = models.ForeignKey(User, related_name='project_assigned',on_delete=models.SET_NULL, limit_choices_to=Q(groups__name__in='dev'), null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=20, null=True, blank=True)
     tipo = models.CharField(max_length=1, choices=tipo_caso, default=1)
@@ -64,7 +64,7 @@ class Caso(models.Model):
 
 class Comment(models.Model):
     id = models.BigAutoField(primary_key=True)
-    caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     comentario = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -74,7 +74,7 @@ class Comment(models.Model):
 
 class Image(models.Model):
     id = models.BigAutoField(primary_key=True)
-    caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)
