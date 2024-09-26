@@ -265,14 +265,20 @@
                 >
                   {% for comment in comments %}
                   <div class="card my-2">
-                    <div class="card-header d-flex justify-content-between">
-                      <strong> {{comment.user.username}} </strong>
-                      {{comment.created_at|date:"H:i d/m/y"}}
-                      {% if request.user.username == 'administrador' %}
-                      <a href="{% url 'deletecomment' comment.id %}" class="btn text-decoration-none btn-danger">
-                        <ion-icon name="trash-outline"></ion-icon>
-                      </a>
-                      {% endif %}
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-sm-11 d-flex justify-content-between">
+                          <strong> {{comment.user.username}} </strong>
+                          {{comment.created_at|date:"H:i d/m/y"}}
+                        </div>
+                        <div class="col-sm-1">
+                          {% if request.user.username == 'administrador' %}
+                          <a href="{% url 'deletecomment' comment.id %}" class="btn text-decoration-none btn-danger">
+                            <ion-icon name="trash-outline"></ion-icon>
+                          </a>
+                          {% endif %}
+                        </div>
+                      </div>
                     </div>
                     <div class="card-body">
                       <p>{{comment.comentario}}</p>
