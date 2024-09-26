@@ -166,6 +166,14 @@ def deleteproject(request, pk):
     except Project.DoesNotExist:
         messages.error("Error al buscar la tabla")
         return redirect('deleteprojectpanel')
+    
+def deleteComment(request, pk):
+    try:
+        comment = get_object_or_404(Comment, id=pk)
+        comment.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    except Comment.DoesNotExist:
+        return redirect(request.META.get('HTTP_REFERER'))
 
 def analista(request):
     projects = Project.objects.filter(responsible_user=request.user)
@@ -233,14 +241,13 @@ def caso(request, caso_id):
         comments = None
     commentform = CommentForm()
     if request.method == 'POST':
-        if 'comment' in request.POST:
-            commentform = CommentForm(request.POST)
-            if commentform.is_valid():
-                comment = commentform.save(commit=False)
-                comment.user = request.user
-                comment.caso = caso
-                comment.save()
-                return redirect('caso', caso_id=caso_id)
+        commentform = CommentForm(request.POST)
+        if commentform.is_valid():
+            comment = commentform.save(commit=False)
+            comment.user = request.user
+            comment.caso = caso
+            comment.save()
+            return redirect('caso', caso_id=caso_id)
         elif 'estado' in request.POST:
             new_estado = request.POST['estado']
             caso.estado = new_estado
@@ -250,13 +257,19 @@ def caso(request, caso_id):
             new_prioridad = request.POST['prioridad']
             caso.prioridad = new_prioridad
             caso.save()
-    
+        #elif 'user' in request.POST:
+        #    new_user = request.POST['user']
+        #    caso.user = new_user
+        #    caso.save
+            
+
     context = {
         'caso': caso,
         'comments': comments,
         'commentform': commentform,
         'estados': Caso.estado_display,
         'prioridad': Caso.prioridad_display,
+        'users': users,
     }
     return render(request, 'core/caso.html', context)
 

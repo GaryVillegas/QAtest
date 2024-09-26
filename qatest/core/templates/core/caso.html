@@ -235,13 +235,25 @@
                     <div class="card-body d-flex flex-column">
                       <h6 class="card-title"><strong>Responsable</strong></h6>
                       {{caso.user.username}}
+                      <!-- 
+                      <form action="{% url 'caso' caso.id %}" method="POST">
+                        {% csrf_token %}
+                        <select name="user" id="user" class="form-select" onchange="this.form.submit()">
+                          {% for user in users %}
+                          <option value="{{user.id}}" {% if user == caso.user %} selected {% endif %}>
+                            {{user.username}}
+                          </option>
+                          {% endfor %}
+                        </select>
+                      </form>
+                      -->
                     </div>
                   </div>
                 </div>
               </div>
               <div class="container">
                 <form method="POST">
-                  {% csrf_token %} <strong> {{commentform}} </strong>
+                  {% csrf_token %} <strong>{{commentform.as_p}}</strong>
                   <button type="submit" class="btn btn-dark my-2">
                     Enviar
                   </button>
@@ -256,6 +268,11 @@
                     <div class="card-header d-flex justify-content-between">
                       <strong> {{comment.user.username}} </strong>
                       {{comment.created_at|date:"H:i d/m/y"}}
+                      {% if request.user.username == 'administrador' %}
+                      <a href="{% url 'deletecomment' comment.id %}" class="btn text-decoration-none btn-danger">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </a>
+                      {% endif %}
                     </div>
                     <div class="card-body">
                       <p>{{comment.comentario}}</p>

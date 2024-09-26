@@ -63,9 +63,9 @@ class Caso(models.Model):
 
 class Comment(models.Model):
     id = models.BigAutoField(primary_key=True)
-    caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    comentario = models.TextField()
+    comentario = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -73,7 +73,7 @@ class Comment(models.Model):
 
 class Image(models.Model):
     id = models.BigAutoField(primary_key=True)
-    caso = models.ForeignKey(Caso, on_delete=models.CASCADE, default=17)
+    caso = models.ForeignKey(Caso, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)
