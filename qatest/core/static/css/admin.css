@@ -2,6 +2,11 @@
   --PRIMARY: #2682b4;
   --WHITE: #fff;
   --GREY: #777;
+  --SinEjecutar: #808080;
+  --Aprobado: #4caf50;
+  --Bloqueado: #ffeb3b;
+  --Retesteado: #ff9800;
+  --FALLIDO: #f44336;
 }
 
 * {

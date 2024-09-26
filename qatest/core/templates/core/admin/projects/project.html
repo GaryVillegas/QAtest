@@ -162,8 +162,10 @@
                             <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                               <strong>{{ caso.titulo }}</strong>
                             </a>
-                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
-                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                            <br/>
+                            <ion-icon name="person-circle-outline"></ion-icon> {{ caso.user.username }}
+                            <br/>
+                            Prioridad: {{caso.prioridad_display}}
                           </div>
                         </div>
                       {% endif %}
@@ -182,8 +184,10 @@
                             <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                               <strong>{{ caso.titulo }}</strong>
                             </a>
-                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
-                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                            <br/>
+                            <ion-icon name="person-circle-outline"></ion-icon> {{ caso.user.username }}
+                            <br/>
+                            Prioridad: {{caso.prioridad_display}}
                           </div>
                         </div>
                       {% endif %}
@@ -202,8 +206,10 @@
                             <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                               <strong>{{ caso.titulo }}</strong>
                             </a>
-                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
-                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                            <br/>
+                            <ion-icon name="person-circle-outline"></ion-icon> {{ caso.user.username }}
+                            <br/>
+                            Prioridad: {{caso.prioridad_display}}
                           </div>
                         </div>
                       {% endif %}
@@ -222,8 +228,10 @@
                             <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                               <strong>{{ caso.titulo }}</strong>
                             </a>
-                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
-                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                            <br/>
+                            <ion-icon name="person-circle-outline"></ion-icon> {{ caso.user.username }}
+                            <br/>
+                            Prioridad: {{caso.prioridad_display}}
                           </div>
                         </div>
                       {% endif %}
@@ -242,8 +250,10 @@
                             <a href="{% url 'caso' caso.id %}" class="card-title text-decoration-none">
                               <strong>{{ caso.titulo }}</strong>
                             </a>
-                            <p class="card-text">Responsable: {{ caso.project.name }}</p>
-                            <p class="card-text">Prioridad: {{caso.prioridad}}</p>
+                            <br/>
+                            <ion-icon name="person-circle-outline"></ion-icon> {{ caso.user.username }}
+                            <br/>
+                            Prioridad: {{caso.prioridad_display}}
                           </div>
                         </div>
                       {% endif %}
@@ -266,7 +276,11 @@
                 <tbody>
                   {% for caso in casos %}
                   <tr>
-                    <td>{{caso.titulo}}</td>
+                    <td>
+                      <a href="{% url 'caso' caso.id %}" class="text-decoration-none text-dark">
+                        {{caso.titulo}}
+                      </a>
+                    </td>
                     <td>{{caso.user.username}}</td>
                     <td>{{caso.estado_display}}</td>
                     <td>{{caso.prioridad}}</td>
