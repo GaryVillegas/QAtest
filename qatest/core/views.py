@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 from django.contrib.auth import logout
@@ -30,6 +31,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
+@login_required
 def adminwindow(request):
     casos = Caso.objects.all()
     projects = Project.objects.prefetch_related(Prefetch('responsible_user', queryset=User.objects.all()))
@@ -41,8 +43,8 @@ def adminwindow(request):
     }
     return render(request, 'core/admin/admin.html', context)
 
+@login_required
 def adduser(request):
-    
     form = UserCreator()
     if request.method == "POST":
         form = UserCreator(request.POST)
@@ -63,6 +65,7 @@ def adduser(request):
 
     return render(request, 'registration/adduser.html', context)
 
+@login_required
 def users(request):
     
     group_name=['analista', 'dev']
@@ -74,8 +77,8 @@ def users(request):
 
     return render(request, 'core/admin/users.html', context)
 
+@login_required
 def deleteuserpanel(request):
-    
     group_name=['analista', 'dev']
     user_list = User.objects.filter(groups__name__in=group_name)
 
@@ -85,7 +88,7 @@ def deleteuserpanel(request):
 
     return render(request, 'core/admin/deleteuserpanel.html', context)
 
-
+@login_required
 def deleteuser(request, user_id):
     try:
         user = User.objects.get(id=user_id)
@@ -100,8 +103,8 @@ def deleteuser(request, user_id):
     
     return render(request, 'core/admin/deleteuserpanel.html')
 
+@login_required
 def projects(request):
-
     projects = Project.objects.all()
     try:
         project = ProjectForm()
@@ -123,8 +126,8 @@ def projects(request):
     }
     return render(request, 'core/admin/projects.html', context)
 
+@login_required
 def deleteprojectpanel(request):
-
     projects = Project.objects.all()
     context = {
         'project_list': projects
@@ -132,8 +135,8 @@ def deleteprojectpanel(request):
 
     return render(request, 'core/admin/deleteprojectpanel.html', context)
 
+@login_required
 def project(request, project_id):
-
     try: 
         projects = Project.objects.get(id=project_id)
         caso = Caso.objects.filter(project=project_id)
@@ -157,7 +160,8 @@ def project(request, project_id):
         return redirect('projects')
     
     return render(request, 'core/admin/projects/project.html', context)
-
+    
+@login_required
 def deleteproject(request, pk):
     try:
         project = get_object_or_404(Project, id = pk)
@@ -166,7 +170,8 @@ def deleteproject(request, pk):
     except Project.DoesNotExist:
         messages.error("Error al buscar la tabla")
         return redirect('deleteprojectpanel')
-    
+
+@login_required
 def deleteComment(request, pk):
     try:
         comment = get_object_or_404(Comment, id=pk)
@@ -175,6 +180,7 @@ def deleteComment(request, pk):
     except Comment.DoesNotExist:
         return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required
 def analista(request):
     projects = Project.objects.filter(responsible_user=request.user)
     casos = Caso.objects.filter(project__in=projects)
@@ -193,6 +199,7 @@ def analista(request):
 
     return render(request, 'core/analista/analista.html', context)
 
+@login_required
 def analista_projects(request):
     try:
         projects = Project.objects.filter(responsible_user = request.user)
@@ -206,6 +213,7 @@ def analista_projects(request):
 
     return render(request, 'core/analista/analista_projects.html', context)
 
+@login_required
 def analista_project(request, project_id):
     project = get_object_or_404(Project, id=project_id, responsible_user=request.user)
     casos = Caso.objects.filter(project=project)
@@ -233,6 +241,7 @@ def analista_project(request, project_id):
     
     return render(request, 'core/analista/analista_project.html', context)
 
+@login_required
 def caso(request, caso_id):
     caso = get_object_or_404(Caso, id=caso_id)
     comments = Comment.objects.filter(caso=caso)
@@ -266,5 +275,6 @@ def caso(request, caso_id):
     }
     return render(request, 'core/caso.html', context)
 
+@login_required
 def dev(request):
     return render(request, 'core/dev/dev.html')

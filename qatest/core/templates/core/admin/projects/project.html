@@ -114,7 +114,11 @@
                 <button type="button" class="btn btn-outline-dark" id="listButton">Lista</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-dark" id="exportButton"><ion-icon name="cloud-download-outline"></ion-icon> Exportar</button>
+                <button type="button" class="btn btn-dark" id="exportButton">
+                  <a href="{% url 'download_pdf' project.id%}" class="text-white text-decoration-none">
+                    <ion-icon name="cloud-download-outline"></ion-icon> Exportar
+                  </a>
+                </button>
               </div>
             </div>
 
