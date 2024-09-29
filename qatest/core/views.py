@@ -5,9 +5,11 @@ from .models import *
 from django.contrib.auth import logout
 from django.db.models import Prefetch
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.contrib import messages
 from .utils.authentication import authenticate_and_redirect
 from .utils.plotgenerator import *
+from .utils.export_utils import *
 
 # Create your views here.
 def index(request):
@@ -160,6 +162,24 @@ def project(request, project_id):
         return redirect('projects')
     
     return render(request, 'core/admin/projects/project.html', context)
+
+@login_required
+def export_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    casos = Caso.objects.filter(project = project)
+    data = [{
+        'titulo': caso.titulo,
+        'estado': caso.estado_display,
+        'prioridad': caso.prioridad_display,
+        'responsable': caso.user.username
+    } for caso in casos]
+
+    if request.GET.get('format') == 'excel':
+        return export_to_excel(data, f"{project.name}_casos")
+    elif request.GET.get('format') == 'pdf':
+        return export_to_pdf(data, f"{project.name}_casos")
+    else:
+        return HttpResponse("Formato no soportado", status=400)
     
 @login_required
 def deleteproject(request, pk):
