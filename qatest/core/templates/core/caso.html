@@ -199,9 +199,9 @@
                 <div class="col-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body d-flex flex-column">
-                      <h6 class="card-title"><strong>Pasos</strong></h6>
+                      <h6 class="card-title"><strong>Descripcion</strong></h6>
                       <p class="card-text flex-grow-1 overflow-auto">
-                        {{caso.pasos}}
+                        {{caso.descripcion}}
                       </p>
                     </div>
                   </div>
@@ -235,18 +235,6 @@
                     <div class="card-body d-flex flex-column">
                       <h6 class="card-title"><strong>Responsable</strong></h6>
                       {{caso.user.username}}
-                      <!-- 
-                      <form action="{% url 'caso' caso.id %}" method="POST">
-                        {% csrf_token %}
-                        <select name="user" id="user" class="form-select" onchange="this.form.submit()">
-                          {% for user in users %}
-                          <option value="{{user.id}}" {% if user == caso.user %} selected {% endif %}>
-                            {{user.username}}
-                          </option>
-                          {% endfor %}
-                        </select>
-                      </form>
-                      -->
                     </div>
                   </div>
                 </div>
@@ -254,7 +242,7 @@
               <div class="container">
                 <form method="POST">
                   {% csrf_token %} <strong>{{commentform.as_p}}</strong>
-                  <button type="submit" class="btn btn-dark my-2">
+                  <button type="submit" name="commentform" class="btn btn-dark my-2">
                     Enviar
                   </button>
                 </form>
@@ -264,26 +252,36 @@
                   style="max-height: 300px; overflow-y: auto"
                 >
                   {% for comment in comments %}
-                  <div class="card my-2">
-                    <div class="card-header">
-                      <div class="row">
-                        <div class="col-sm-11 d-flex justify-content-between">
-                          <strong> {{comment.user.username}} </strong>
-                          {{comment.created_at|date:"H:i d/m/y"}}
-                        </div>
-                        <div class="col-sm-1">
-                          {% if request.user.username == 'administrador' %}
-                          <a href="{% url 'deletecomment' comment.id %}" class="btn text-decoration-none btn-danger">
-                            <ion-icon name="trash-outline"></ion-icon>
-                          </a>
-                          {% endif %}
+                  {% if request.user.username == 'administrador' %}
+                    <div class="card my-2">
+                      <div class="card-header">
+                        <div class="row">
+                          <div class="col-sm-11 d-flex justify-content-between">
+                            <strong> {{comment.user.username}} </strong>
+                            {{comment.created_at|date:"H:i d/m/y"}}
+                          </div>
+                          <div class="col-sm-1">
+                            <a href="{% url 'deletecomment' comment.id %}" class="btn text-decoration-none btn-danger">
+                              <ion-icon name="trash-outline"></ion-icon>
+                            </a>
+                          </div>
                         </div>
                       </div>
+                      <div class="card-body">
+                        <p>{{comment.comentario}}</p>
+                      </div>
+                    </div>
+                  {% else %}
+                  <div class="card my-2">
+                    <div class="card-header d-flex justify-content-between">
+                      <strong> {{comment.user.username}} </strong>
+                      {{comment.created_at|date:"H:i d/m/y"}}
                     </div>
                     <div class="card-body">
                       <p>{{comment.comentario}}</p>
                     </div>
                   </div>
+                  {% endif %}
                   {% endfor %}
                 </div>
               </div>

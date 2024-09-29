@@ -38,7 +38,7 @@ class ProjectForm(forms.ModelForm):
 class CasoForm(forms.ModelForm):
     class Meta:
         model = Caso
-        fields = ['user', 'project', 'titulo', 'estado', 'tipo', 'prioridad', 'estimado', 'precondicion', 'pasos', 'resultados_esperados']
+        fields = ['user', 'project', 'titulo', 'estado', 'tipo', 'prioridad', 'estimado', 'precondicion','descripcion', 'resultados_esperados']
         widget = {
             'titulo': forms.Select(attrs={'class': 'form-control'}),
             'project': forms.Select(attrs={'class': 'form-control'}),
@@ -47,7 +47,7 @@ class CasoForm(forms.ModelForm):
             'prioridad': forms.Select(attrs={'class': 'form-control'}),
             'estimado': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
             'precondicion': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
-            'pasos': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
             'resultados_esperados': forms.TextInput(attrs={'class': 'form-control', 'type': 'text'}),
         }
     
@@ -70,7 +70,7 @@ class CasoForm(forms.ModelForm):
             Fieldset(
                 'Informacion',
                 'precondicion',
-                'pasos',
+                'descripcion',
                 'resultados_esperados'
             )
         )

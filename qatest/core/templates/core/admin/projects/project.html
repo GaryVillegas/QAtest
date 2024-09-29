@@ -153,8 +153,10 @@
               <h2>Tablero</h2>
               <div class="row">
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Sin Empezar</h2>
+                  <div class="card p-1" style="background-color: #808080;">
+                    <h2 class="badge bg-light text-dark rounded-pill p-2">
+                      <strong>Sin Empezar</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '1' %}
                         <div class="card bg-white my-1">
@@ -175,8 +177,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Bloqueado</h2>
+                  <div class="card p-1" style="background-color: #FFEB3B;">
+                    <h2 class="badge bg-light text-dark rounded-pill p-2">
+                      <strong>Bloqueado</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '3' %}
                         <div class="card bg-white my-1">
@@ -197,8 +201,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Retesteado</h2>
+                  <div class="card p-1" style="background-color: #FF9800;">
+                    <h2 class="badge bg-light text-dark rounded-pill p-2">
+                      <strong>Retesteado</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '4' %}
                         <div class="card bg-white my-1">
@@ -219,8 +225,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Fallido</h2>
+                  <div class="card p-1" style="background-color: #F44336;">
+                    <h2 class="badge bg-light rounded-pill p-2 text-dark">
+                      <strong>Fallido</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '5' %}
                         <div class="card bg-white my-1">
@@ -241,8 +249,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Aprobado</h3>
+                  <div class="card p-1" style="background-color: #4CAF50">
+                    <h2 class="badge bg-light rounded-pill p-2 text-dark">
+                      <strong>Aprobado</strong>
+                    </h3>
                     {% for caso in casos %}
                       {% if caso.estado == '2' %}
                         <div class="card bg-white my-1">
@@ -282,8 +292,10 @@
                       </a>
                     </td>
                     <td>{{caso.user.username}}</td>
-                    <td>{{caso.estado_display}}</td>
-                    <td>{{caso.prioridad}}</td>
+                    <td style="background-color: {% if caso.estado_display == 'Sin Ejecutar' %} #808080 {% elif caso.estado_display == 'Aprobado' %} #4CAF50 {% elif caso.estado_display == 'Bloqueado' %} #FFEB3B {% elif caso.estado_display == 'Retesteado' %} #FF9800 {% elif caso.estado_display == 'Fallido' %} #F44336 {% endif %};" class="text-white">
+                      {{ caso.estado_display }}
+                    </td>
+                    <td>{{caso.prioridad_display}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>

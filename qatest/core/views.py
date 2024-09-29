@@ -236,18 +236,16 @@ def analista_project(request, project_id):
 def caso(request, caso_id):
     caso = get_object_or_404(Caso, id=caso_id)
     comments = Comment.objects.filter(caso=caso)
-    
-    if comments == None:
-        comments = None
     commentform = CommentForm()
     if request.method == 'POST':
-        commentform = CommentForm(request.POST)
-        if commentform.is_valid():
-            comment = commentform.save(commit=False)
-            comment.user = request.user
-            comment.caso = caso
-            comment.save()
-            return redirect('caso', caso_id=caso_id)
+        if 'commentform' in request.POST:
+            commentform = CommentForm(request.POST)
+            if commentform.is_valid():
+                comment = commentform.save(commit=False)
+                comment.user = request.user
+                comment.caso = caso
+                comment.save()
+                return redirect('caso', caso_id=caso_id)
         elif 'estado' in request.POST:
             new_estado = request.POST['estado']
             caso.estado = new_estado
@@ -257,11 +255,6 @@ def caso(request, caso_id):
             new_prioridad = request.POST['prioridad']
             caso.prioridad = new_prioridad
             caso.save()
-        #elif 'user' in request.POST:
-        #    new_user = request.POST['user']
-        #    caso.user = new_user
-        #    caso.save
-            
 
     context = {
         'caso': caso,
