@@ -1,14 +1,3 @@
-:root {
-  --PRIMARY: #2682b4;
-  --WHITE: #fff;
-  --GREY: #777;
-  --SinEjecutar: #808080;
-  --Aprobado: #4caf50;
-  --Bloqueado: #ffeb3b;
-  --Retesteado: #ff9800;
-  --FALLIDO: #f44336;
-}
-
 * {
   padding: 0;
   margin: 0;
@@ -22,4 +11,20 @@
   position: fixed;
   top: 10px;
   left: 10px;
+}
+
+.bg-gray {
+  background-color: #808080;
+}
+.bg-success {
+  background-color: #4caf50;
+}
+.bg-warning {
+  background-color: #ffeb3b;
+}
+.bg-orange {
+  background-color: #ff9800;
+}
+.bg-danger {
+  background-color: #f44336;
 }

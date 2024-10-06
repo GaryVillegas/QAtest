@@ -29,6 +29,10 @@ def generate_plot_admin(qs):
         'title': x.project.name
     } for x in qs]
     df = pd.DataFrame(casos_data)
+    
+    df_count = df['estado'].value_counts().reset_index()
+    df_count.columns = ['estado', 'count']
+    
     colors = {
         'Sin Ejecutar': '#808080',
         'Aprobado': '#4CAF50',
@@ -36,9 +40,18 @@ def generate_plot_admin(qs):
         'Retesteado': '#FF9800',
         'Fallido': '#F44336',
     }
-    fig = px.pie(df, names='estado', title='Estado de los Casos', color='estado', color_discrete_map=colors)
-    fig.update_traces(textposition='inside', textinfo='percent+label')
+    
+    fig = px.bar(df_count, 
+                 x='estado', 
+                 y='count', 
+                 title='Estado de los Casos',
+                 color='estado',
+                 color_discrete_map=colors,
+                 labels={'count': 'Cantidad', 'estado': 'Estado'})
+    
     fig.update_layout(showlegend=False)
+    fig.update_traces(texttemplate='%{y}', textposition='outside')
+    
     return plot(fig, output_type='div')
 
 def generate_plot_test(qs):
