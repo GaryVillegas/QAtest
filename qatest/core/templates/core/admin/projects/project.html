@@ -17,7 +17,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-auto bg-light sticky-top">
+        <div class="col-sm-auto bg-light sticky-top rounded-0">
           <div
             class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top"
           >
@@ -114,7 +114,21 @@
                 <button type="button" class="btn btn-outline-dark" id="listButton">Lista</button>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-dark" id="exportButton"><ion-icon name="cloud-download-outline"></ion-icon> Exportar</button>
+                <div class="dropdown">
+                  <button class="btn btn-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false"><ion-icon name="cloud-download-outline"></ion-icon></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="{% url 'export_project' project.id %}?format=excel" class="dropdown-item">
+                        <ion-icon name="document-outline" class="me-2"></ion-icon> Exportar a Excel
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'export_project' project.id %}?format=pdf" class="dropdown-item">
+                        <ion-icon name="document-text-outline" class="me-2"></ion-icon> Exportar a PDF
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -149,12 +163,14 @@
           </div>
 
           <div id="container my-1">
-            <div id="board" class="tab-content">
+            <div id="board" class="tab-content h-100">
               <h2>Tablero</h2>
               <div class="row">
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Sin Empezar</h2>
+                  <div class="card p-1">
+                    <h2 class="badge text-white rounded-pill p-2" style="background-color: #808080;">
+                      <strong>Sin Empezar</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '1' %}
                         <div class="card bg-white my-1">
@@ -175,8 +191,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Bloqueado</h2>
+                  <div class="card p-1">
+                    <h2 class="badge text-white rounded-pill p-2" style="background-color: #FFEB3B;">
+                      <strong>Bloqueado</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '3' %}
                         <div class="card bg-white my-1">
@@ -197,8 +215,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Retesteado</h2>
+                  <div class="card p-1">
+                    <h2 class="badge text-white rounded-pill p-2" style="background-color: #FF9800;">
+                      <strong>Retesteado</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '4' %}
                         <div class="card bg-white my-1">
@@ -219,8 +239,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Fallido</h2>
+                  <div class="card p-1">
+                    <h2 class="badge rounded-pill p-2 text-white"  style="background-color: #F44336;">
+                      <strong>Fallido</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '5' %}
                         <div class="card bg-white my-1">
@@ -241,8 +263,10 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card bg-secondary p-1">
-                    <h2 class="badge bg-dark rounded-pill p-2">Aprobado</h3>
+                  <div class="card p-1">
+                    <h2 class="badge rounded-pill p-2 text-white" style="background-color: #4CAF50">
+                      <strong>Aprobado</strong>
+                    </h2>
                     {% for caso in casos %}
                       {% if caso.estado == '2' %}
                         <div class="card bg-white my-1">
@@ -282,8 +306,10 @@
                       </a>
                     </td>
                     <td>{{caso.user.username}}</td>
-                    <td>{{caso.estado_display}}</td>
-                    <td>{{caso.prioridad}}</td>
+                    <td class="caso-estado">
+                      {{ caso.estado_display }}
+                    </td>
+                    <td>{{caso.prioridad_display}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -320,6 +346,27 @@
       document.getElementById('listButton').addEventListener('click', function() {
         document.getElementById('board').style.display = 'none';
         document.getElementById('list').style.display = 'block';
+      });
+
+      document.querySelectorAll('.caso-estado').forEach(function(td) {
+        const estado = td.getAttribute('data-estado');
+        switch(estado){
+          case 'Sin Ejecutar':
+            td.classList.add('bg-gray');
+            break;
+          case 'Aprobado':
+            td.classList.add('bg-success');
+            break;
+          case 'Bloqueado':
+            td.classList.add('bg-warning');
+            break;
+          case 'Retesteado':
+            td.classList.add('bg-orange');
+            break;
+          case 'Fallido':
+            td.classList.add('bg-danger');
+            break;
+        }
       });
     </script>
   </body>

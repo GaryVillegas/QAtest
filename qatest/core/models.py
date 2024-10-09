@@ -45,8 +45,8 @@ class Caso(models.Model):
     estado = models.CharField(max_length=1, choices=estado_caso, default=1)
     prioridad = models.CharField(max_length=1, choices=prioridad_caso, default=1)
     estimado = models.CharField(max_length=10)
-    precondicion = models.TextField(max_length=150, null=True, blank=True)
-    pasos = models.TextField(max_length=150, null=True, blank=True)
+    precondicion = models.CharField(max_length=250, null=True, blank=True)
+    descripcion = models.TextField(max_length=250, null=True, blank=True)
     resultados_esperados = models.TextField(max_length=150, null=True, blank=True)
 
     @property
