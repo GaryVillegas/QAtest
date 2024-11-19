@@ -39,8 +39,8 @@ def adminwindow(request):
     
     context = {
         'projects': projects,
-        'graf': generate_plot_admin(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>',
-        'graf_test': generate_plot_test(casos) if casos.exists() else '<div><strong>No hay datos disponibles para generar el gráfico.</strong></div>',
+        'graf': generate_plot_admin(casos) if casos.exists() else print('error'),
+        'graf_test': generate_plot_test(casos) if casos.exists() else print('Error'),
     }
     return render(request, 'core/admin/admin.html', context)
 
