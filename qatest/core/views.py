@@ -44,7 +44,7 @@ def adminwindow(request):
             project = ProjectForm(request.POST)
             if project.is_valid():
                 project.save()
-                return redirect('projects')
+                return redirect('adminwindow')
         msg = ''
     except Project.DoesNotExist:
         msg = 'There are 0 projects at this moment.'

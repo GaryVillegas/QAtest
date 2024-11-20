@@ -28,3 +28,11 @@
 .bg-danger {
   background-color: #f44336;
 }
+
+.button-admin {
+  width: 80px;
+  height: 80px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  font-size: 40px;
+}
