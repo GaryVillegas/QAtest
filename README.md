@@ -7,8 +7,10 @@ Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 - JavaScript
 - Bootstrap
 - Python
+
 ![htmlLogo](https://img.icons8.com/?size=100&id=20909&format=png&color=000000)
-  Sin más no poder avanzarlo dado a que sigo aprendiendo nuevas tecnologias.
+
+Sin más no poder avanzarlo dado a que sigo aprendiendo nuevas tecnologias.
 
 ### Framework
 
