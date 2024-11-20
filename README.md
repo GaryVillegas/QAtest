@@ -22,6 +22,8 @@ Dentro de todo lo que se hizo en el proyecto, le termine agregando más compleme
 - Plotly
 - ReportLab
 
+![pandasLogo](https://img.icons8.com/?size=100&id=xSkewUSqtErH&format=png&color=000000) ![plotlyLogo](https://images.prismic.io/plotly-marketing-website-2/8f977c91-7b4e-4367-8228-26fbba2506e4_69e12d6a-fb65-4b6e-8423-9465a29c6028_plotly-logo-sm.png?auto=compress%2Cformat&fit=max&w=256) ![reportLabLogo](https://rl-website-assets.s3.eu-west-2.amazonaws.com/images/RL-wide-v2.svg)
+
 ReportLab se ocupo más que nada para poder exportar los archivos. Y tanto pandas como plotly se ocupo para el analisis de datos.
 
 ### Base de Datos
