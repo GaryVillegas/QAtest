@@ -17,10 +17,9 @@ Dentro de todo lo que se hizo en el proyecto, le termine agregando más compleme
 
 - Pandas
 - Plotly
-  ![graphExample1](exampleImage/graphics.png)
-  ![graphExample2](exampleImage/graphics%202.png)
 - ReportLab
-  ReportLab se ocupo más que nada para poder exportar los archivos. Y tanto pandas como plotly se ocupo para el analisis de datos.
+
+ReportLab se ocupo más que nada para poder exportar los archivos. Y tanto pandas como plotly se ocupo para el analisis de datos.
 
 ### Base de Datos
 
