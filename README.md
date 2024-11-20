@@ -4,8 +4,7 @@ Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 *CSS
 *JavaScript
 *Bootstrap
-*Python 
-(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stickersdevs.com.br%2Fshop%2Fstickers%2Fpython-sticker-logo%2F&psig=AOvVaw1skZJyUcjD8vY5PlS9QMKc&ust=1732209985368000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOjTjZq364kDFQAAAAAdAAAAABAE)
+*Python
 Sin más no poder avanzarlo dado a que sigo aprendiendo nuevas tecnologias.
 
 #### Framework
