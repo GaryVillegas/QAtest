@@ -1,18 +1,18 @@
 # QAtest
 Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
-*HTML 
-*CSS
-*JavaScript
-*Bootstrap
+⋅⋅*HTML 
+⋅⋅*CSS
+⋅⋅*JavaScript
+⋅⋅*Bootstrap
 *Python
 Sin más no poder avanzarlo dado a que sigo aprendiendo nuevas tecnologias.
 
 #### Framework
 ------
 Dentro de todo lo que se hizo en el proyecto, le termine agregando más complementos como graficos y la descarga de estos en excel y PDF. Todo esto logrado con diferentes librerias como:
-*Pandas
-*ReportLab
-*Plotly
+⋅⋅*Pandas
+⋅⋅*ReportLab
+⋅⋅*Plotly
 ReportLab se ocupo más que nada para poder exportar los archivos. Y tanto pandas como plotly se ocupo para el analisis de datos.
 
 #### Base de Datos
