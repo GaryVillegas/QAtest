@@ -36,11 +36,25 @@ def logout_view(request):
 def adminwindow(request):
     casos = Caso.objects.all()
     projects = Project.objects.prefetch_related(Prefetch('responsible_user', queryset=User.objects.all()))
+    projects = Project.objects.all()
+    try:
+        project = ProjectForm()
+
+        if request.method == "POST":
+            project = ProjectForm(request.POST)
+            if project.is_valid():
+                project.save()
+                return redirect('projects')
+        msg = ''
+    except Project.DoesNotExist:
+        msg = 'There are 0 projects at this moment.'
+        projects = None
     
     context = {
         'projects': projects,
         'graf': generate_plot_admin(casos) if casos.exists() else print('error'),
         'graf_test': generate_plot_test(casos) if casos.exists() else print('Error'),
+        'projectform': project,
     }
     return render(request, 'core/admin/admin.html', context)
 

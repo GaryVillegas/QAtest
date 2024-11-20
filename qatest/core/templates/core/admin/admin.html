@@ -97,7 +97,7 @@
 
         <div class="col-sm p-3 min-vh-100 bg-white">
           <!-- content -->
-          {% block content %} {% if casos == none and project == none %}
+          {% block content %} {% if project == none %}
           <div
             class="container-fluid d-flex justify-content-center align-items-center vh-100"
           >
@@ -115,15 +115,40 @@
                     height: 80px;
                     border: 1px solid gray;
                     border-radius: 10px;
+                    font-size: 40px;
                   "
+                  data-bs-toggle="modal"
+                  data-bs-target="#myModal"
                 >
-                  <a
-                    href=""
-                    class="text-dark text-decoration-none"
-                    style="font-size: 40px"
-                    ><ion-icon name="add-outline"></ion-icon
-                  ></a>
+                  <ion-icon name="add-outline"></ion-icon>
                 </button>
+              </div>
+              <!-- Modal -->
+              <div class="modal" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <form method="POST">
+                        {% csrf_token %} {{ projectform.as_p }}
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-dark">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                            Guardar
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal"
+                          >
+                            <ion-icon name="close-outline"></ion-icon>
+                            Cancelar
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
