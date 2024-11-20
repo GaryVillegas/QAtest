@@ -5,7 +5,7 @@ Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 *JavaScript
 *Bootstrap
 *Python 
-[logoPython]
+(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stickersdevs.com.br%2Fshop%2Fstickers%2Fpython-sticker-logo%2F&psig=AOvVaw1skZJyUcjD8vY5PlS9QMKc&ust=1732209985368000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOjTjZq364kDFQAAAAAdAAAAABAE)
 Sin más no poder avanzarlo dado a que sigo aprendiendo nuevas tecnologias.
 
 #### Framework
@@ -21,5 +21,3 @@ ReportLab se ocupo más que nada para poder exportar los archivos. Y tanto panda
 Lamentablemente no se ocupo una base de datos externa como mysql, oracle o microsoft server. Bases de datos SQL.
 Están más que nada las podría llegar a implementar sin problema alguno dado a mis conocimientos de estas.
 
-[logoPython]: https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stickersdevs.com.br%2Fshop%2Fstickers%2Fpython-sticker-logo%2F&psig=AOvVaw1skZJyUcjD8vY5PlS9QMKc&ust=1732209985368000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOjTjZq364kDFQAAAAAdAAAAABAE
-[logoHtml]:
