@@ -3,7 +3,7 @@
 Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 
 - HTML
-[logo][htmlLogo]
+- [logo][htmlLogo]
 - CSS
 - JavaScript
 - Bootstrap
