@@ -3,7 +3,7 @@
 Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 
 - HTML
-![htmlLogo]:(https://img.icons8.com/?size=100&id=20909&format=png&color=000000)
+[logo][htmlLogo]
 - CSS
 - JavaScript
 - Bootstrap
@@ -32,3 +32,6 @@ Están más que nada las podría llegar a implementar sin problema alguno dado a
 Referencias para poder crear un texto parecido a este[^1].
 
 [^1]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+
+[htmlLogo]:(https://img.icons8.com/?size=100&id=20909&format=png&color=000000)
