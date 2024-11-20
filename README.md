@@ -3,6 +3,7 @@
 Proyecto desarrollado para un examen de instituto en el cual se tuvo que ocupar:
 
 - HTML
+![htmlLogo]:(https://img.icons8.com/?size=100&id=20909&format=png&color=000000)
 - CSS
 - JavaScript
 - Bootstrap
