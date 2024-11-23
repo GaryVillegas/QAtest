@@ -15,6 +15,8 @@
     />
     <!-- Test -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- htmx -->
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -89,7 +91,13 @@
               aria-labelledby="dropdownUser3"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <a
+                  class="dropdown-item"
+                  hx-post="{% url 'logout' %}"
+                  hx-confirm="¿estas seguro de querer salir?"
+                >
+                  Logout</a
+                >
               </li>
             </ul>
           </div>
